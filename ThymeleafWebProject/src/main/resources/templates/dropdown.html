@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Dropdown usage sample</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<style>    
+select option[selected="selected"] {
+    color:white;
+    background:green;
+}
+</style>
+ 
+<script type="text/javascript">
+//<![CDATA[
+function showMapping(str)
+{
+var xmlhttp;    
+if (str=="")
+  {
+  document.getElementById("codeMapping").innerHTML="";
+  return;
+  }
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  
+xmlhttp.onreadystatechange=function()
+  {
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			var elem = document.getElementById("codeMapping")
+			elem.value = xmlhttp.responseText;
+	    }
+  }
+xmlhttp.open("GET","/dropdown/request?code="+str,true);
+xmlhttp.send();
+}
+//]]>
+</script>
+
+<body>
+	<form action="submit" th:action="@{/dropdown}" th:object="${formObject}"  method="POST">
+		<select th:field="*{currentValue}" onchange="showMapping(this.value)">
+			<option th:each="v:*{values.entrySet()}" 
+				th:value="${v.key}" 
+				th:text="${v.value}">
+			</option>
+		</select>
+		<input type="text" th:field="*{codeMapping}"/>
+	</form>
+</body>
+</html>

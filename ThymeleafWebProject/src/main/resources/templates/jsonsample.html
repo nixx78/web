@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>JSON usage sample</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<style>    
+select option[selected="selected"] {
+    color:white;
+    background:green;
+}
+</style>
+ 
+<script type="text/javascript">
+//<![CDATA[
+function showPersonInfo(code)
+{
+var xmlhttp;    
+if (code=="") 
+{
+  return;
+}
+
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  
+xmlhttp.onreadystatechange=function()
+  {
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+		  	var jsonObj = JSON.parse(xmlhttp.responseText);
+		  
+			var codeMappElement = document.getElementById("name")
+			codeMappElement.value = jsonObj.name;
+
+			var codeMappElement = document.getElementById("surname")
+			codeMappElement.value = jsonObj.surname;
+
+			var personCodesElement = document.getElementById("personCodes")
+			personCodesElement.text=code;
+	    }
+  }
+xmlhttp.open("GET","/json/request?code="+code,true);
+xmlhttp.send();
+}
+//]]>
+</script>
+
+<body>
+	<form action="submit" th:action="@{/jsonsample}" th:object="${formObject}"  method="POST">
+		<select id="personCodes" th:field="*{selectedCode}" onchange="showPersonInfo(this.value)">
+			<option th:each="code:*{personCodes}" 
+				th:value="${code}" 
+				th:text="${code}">
+			</option>
+		</select>
+		<input id="name" 	type="text" th:field="*{name}" />
+		<input id="surname" type="text" th:field="*{surname}"/>
+		<input type = "submit" name = "submit" value = "SubmitButton"/>
+	</form>
+</body>
+
+</html>
