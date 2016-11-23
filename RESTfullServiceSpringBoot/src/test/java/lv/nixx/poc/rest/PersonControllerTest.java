@@ -29,9 +29,7 @@ public class PersonControllerTest {
 	
 	private final String URL = "http://localhost:8080/person";
 
-	private final UUID key = UUID.fromString("f3512d26-72f6-4290-9265-63ad69eccc13");
 	private RestTemplate restTemplate = new RestTemplate();
-	
 	
 	@Test
 	public void addPerson(){
@@ -61,12 +59,12 @@ public class PersonControllerTest {
 	
 	@Test
 	public void deletePerson(){
-		restTemplate.delete(URL + "/{id}", key);
+		restTemplate.delete(URL + "/{id}", 4);
 	}
 
 	@Test
 	public void getPersonAsXML(){
-		ResponseEntity<String> response = restTemplate.getForEntity(URL + "/{id}/xml", String.class, key);
+		ResponseEntity<String> response = restTemplate.getForEntity(URL + "/{id}/xml", String.class, 1);
 		String p = response.getBody();
 		
 		assertNotNull(p);
@@ -75,7 +73,7 @@ public class PersonControllerTest {
 	
 	@Test
 	public void getPersonAsObject(){
-		ResponseEntity<Person> response = restTemplate.getForEntity(URL + "/{id}", Person.class, key);
+		ResponseEntity<Person> response = restTemplate.getForEntity(URL + "/{id}", Person.class, 2);
 		Person p = response.getBody();
 		
 		assertNotNull(p);
@@ -95,7 +93,7 @@ public class PersonControllerTest {
 	
 	@Test
 	public void getPersonAsJSON(){
-		ResponseEntity<String> response = restTemplate.getForEntity(URL + "/{id}", String.class, key.toString());
+		ResponseEntity<String> response = restTemplate.getForEntity(URL + "/{id}", String.class, 2);
 		String p = response.getBody();
 				
 		assertNotNull(p);
@@ -107,8 +105,8 @@ public class PersonControllerTest {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
-		HttpEntity<String> entity = new HttpEntity<String>(createPersonJSON(key), headers);
-		restTemplate.put(URL + "/{id}", entity, key);
+		HttpEntity<String> entity = new HttpEntity<String>(createPersonJSON(2), headers);
+		restTemplate.put(URL + "/{id}", entity, 2);
 	}
 
 	@Test
@@ -116,8 +114,8 @@ public class PersonControllerTest {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
 
-		HttpEntity<String> entity = new HttpEntity<String>(createPersonXML(key), headers);
-		restTemplate.put(URL + "/{id}", entity, key);
+		HttpEntity<String> entity = new HttpEntity<String>(createPersonXML(3), headers);
+		restTemplate.put(URL + "/{id}", entity, 3);
 	}
 	
 	@Test
@@ -125,7 +123,7 @@ public class PersonControllerTest {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
-		HttpEntity<String> entity = new HttpEntity<String>(createPersonJSON(key), headers);
+		HttpEntity<String> entity = new HttpEntity<String>(createPersonJSON(1), headers);
 		restTemplate.postForLocation(URL, entity, String.class);
 	}
 	
@@ -135,16 +133,16 @@ public class PersonControllerTest {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_XML);
 		
-		HttpEntity<String> entity = new HttpEntity<String>(createPersonXML(key),headers);
+		HttpEntity<String> entity = new HttpEntity<String>(createPersonXML(5),headers);
 		restTemplate.postForLocation(URL, entity, String.class);
 	}
 
 	@Test
 	public void batchRemove() {
-		UUID[] ids = new UUID[] { UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID() };
+		int[] ids =  new int[] { 1, 2, 3, 4 };
 
-		HttpEntity<UUID[]> entity = new HttpEntity<UUID[]>(ids);
-		URI postForLocation = restTemplate.postForLocation(URL + "/deletes", entity, UUID[].class);
+		HttpEntity<int[]> entity = new HttpEntity<int[]>(ids);
+		URI postForLocation = restTemplate.postForLocation(URL + "/deletes", entity, int[].class);
 		System.out.println("BatchLocation: " + postForLocation);
 
 		ResponseEntity<String> exchange = restTemplate.exchange(postForLocation, HttpMethod.DELETE, new HttpEntity<String>(""), String.class);
@@ -159,6 +157,11 @@ public class PersonControllerTest {
 			assertEquals(HttpStatus.NOT_FOUND, t.getStatusCode());
 			throw t;
 		}
+	}
+	
+	@Test
+	public void getAllPersons() {
+		
 	}
 
 }

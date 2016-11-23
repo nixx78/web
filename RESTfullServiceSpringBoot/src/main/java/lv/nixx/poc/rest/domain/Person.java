@@ -8,29 +8,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Person {
 
-	private UUID id;
+	private int id;
 	private String name;
 	private String surname;
 	private Date dateOfBirth;
 	
 	// this constructor without parameters is needed for JSON converter
 	public Person(){
-		this.id = UUID.randomUUID();
 	}
 	
 	public Person(String name, String surname, Date dateOfBirth ){
-		this.id = UUID.randomUUID();
 		this.name = name;
 		this.surname = surname;
 		this.dateOfBirth = dateOfBirth;
 	}
 
 	@XmlAttribute(name="id")
-	public UUID getId() {
+	public int getId() {
 		return id;
 	}
 	
-	public void setId(UUID id){
+	public void setId(int id){
 		this.id = id;
 	}
 
