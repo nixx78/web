@@ -39,12 +39,19 @@ public class PersonController {
 		return new ResponseEntity<Person>(p, p == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/{id}")
+	@RequestMapping(method=RequestMethod.GET, value="/{id}", produces="application/json")
 	public @ResponseBody ResponseEntity<Person> getPerson(@PathVariable(name="id") int id) {
 		log.debug("Get person by id [{}]", id);
 
 		final Person p = personDAO.getById(id);
 		return new ResponseEntity<Person>(p, p == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, produces="application/json")
+	public @ResponseBody Person[] getAllPersons() {
+		log.debug("Get all persons");
+		Collection<Person> allPersons = personDAO.getAllPersons();
+		return allPersons.toArray(new Person[allPersons.size()]);
 	}
 
 	@RequestMapping(method=RequestMethod.PUT, value="/{id}")
@@ -59,7 +66,7 @@ public class PersonController {
 		log.debug("remove person, id [{}]", id);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/deletes")
+	@RequestMapping(method=RequestMethod.POST, value="/delete")
 	public @ResponseBody ResponseEntity<String> postPersonRemoveBatch(@RequestBody Integer[] ids, UriComponentsBuilder builder) {
         Arrays.stream(ids).forEach(t->log.debug(t.toString()));
 		UUID batchId = personDAO.addToDeleteBatch(ids);
@@ -67,12 +74,12 @@ public class PersonController {
 		log.debug("Add persons to batch id [{}]", batchId);
 		
         final HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(builder.path(BASE_URL + "/deletes/{id}").buildAndExpand(batchId).toUri());
+		headers.setLocation(builder.path(BASE_URL + "/delete/{id}").buildAndExpand(batchId).toUri());
 		
 		return new ResponseEntity<String>(batchId.toString(), headers, HttpStatus.OK);
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE, value="/deletes/{batchId}")
+	@RequestMapping(method=RequestMethod.DELETE, value="/delete/{batchId}")
 	public @ResponseBody ResponseEntity<String> removePersonBatch(@PathVariable(name="batchId") UUID batchId) {
 		log.debug("Delete persons from batch id [{}]", batchId);
 		
@@ -83,13 +90,6 @@ public class PersonController {
 		}
 
 		return new ResponseEntity<String>(batchId.toString(), HttpStatus.NOT_FOUND);
-	}
-	
-	@RequestMapping(method=RequestMethod.GET)
-	public @ResponseBody Person[] getAllPersons() {
-		log.debug("Get all persons");
-		Collection<Person> allPersons = personDAO.getAllPersons();
-		return allPersons.toArray(new Person[allPersons.size()]);
 	}
 	
 }

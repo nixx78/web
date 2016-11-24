@@ -5,6 +5,7 @@ import static lv.nixx.poc.rest.PersonFixtures.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
@@ -142,7 +143,7 @@ public class PersonControllerTest {
 		int[] ids =  new int[] { 1, 2, 3, 4 };
 
 		HttpEntity<int[]> entity = new HttpEntity<int[]>(ids);
-		URI postForLocation = restTemplate.postForLocation(URL + "/deletes", entity, int[].class);
+		URI postForLocation = restTemplate.postForLocation(URL + "/delete", entity, int[].class);
 		System.out.println("BatchLocation: " + postForLocation);
 
 		ResponseEntity<String> exchange = restTemplate.exchange(postForLocation, HttpMethod.DELETE, new HttpEntity<String>(""), String.class);
@@ -152,7 +153,7 @@ public class PersonControllerTest {
 	@Test(expected = HttpClientErrorException.class)
 	public void batchRemove_BatchNotExists() throws URISyntaxException {
 		try {
-			restTemplate.delete(new URI(URL + "/deletes/" + UUID.randomUUID()));
+			restTemplate.delete(new URI(URL + "/delete/" + UUID.randomUUID()));
 		} catch (HttpClientErrorException t) {
 			assertEquals(HttpStatus.NOT_FOUND, t.getStatusCode());
 			throw t;
@@ -161,7 +162,11 @@ public class PersonControllerTest {
 	
 	@Test
 	public void getAllPersons() {
+		ResponseEntity<Person[]> response = restTemplate.getForEntity(URL, Person[].class);
+		Person[] persons = response.getBody();
+		assertNotNull(persons);
 		
+		Arrays.stream(persons).forEach(System.out::println);
 	}
 
 }
