@@ -16,7 +16,7 @@ public class RestRequest {
 	
 	private Object data;
 	private String url;
-	private Object[] urlVariables;
+	private Object[] urlVariables = new Object[]{};
 	private Class<?> responseType;
 	
 	private HttpHeaders headers = new HttpHeaders();
@@ -39,20 +39,13 @@ public class RestRequest {
 	
 	public URI  postForLocation() {
 		RestTemplate restTemplate = new RestTemplate();
-		HttpEntity<?> requestEntity = new HttpEntity<>(data, headers);
-		return restTemplate.postForLocation(url, requestEntity);
+		return restTemplate.postForLocation(url, new HttpEntity<>(data, headers));
 	}
 
 	@SuppressWarnings("unchecked")
 	private <T> ResponseEntity<T> execute(HttpMethod method) {
 		RestTemplate restTemplate = new RestTemplate();
-		HttpEntity<?> requestEntity = new HttpEntity<>(data, headers);
-		
-		if (urlVariables != null ) {
-			return (ResponseEntity<T>) restTemplate.exchange(url, method, requestEntity, responseType, urlVariables);
-		} else {
-			return (ResponseEntity<T>) restTemplate.exchange(url, method, requestEntity, responseType);
-		}
+		return (ResponseEntity<T>) restTemplate.exchange(url, method, new HttpEntity<>(data, headers), responseType, urlVariables);
 	}
 	
 	
@@ -90,7 +83,6 @@ public class RestRequest {
 		public Builder withBasicAuthentication(String credentials) {
 			String base = Base64Utils.encodeToString(credentials.getBytes());
 			headers.add("Authorization", "Basic " + base);
-			
 			return this;
 		}
 
