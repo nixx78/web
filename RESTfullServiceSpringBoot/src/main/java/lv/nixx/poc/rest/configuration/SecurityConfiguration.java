@@ -1,4 +1,4 @@
-package lv.nixx.poc.rest;
+package lv.nixx.poc.rest.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

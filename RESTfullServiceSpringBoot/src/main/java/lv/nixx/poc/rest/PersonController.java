@@ -9,8 +9,12 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/" + PersonController.BASE_URL)
+@Api(value="CRUD Operations for entity Person")
 public class PersonController {
 	
 	static final String BASE_URL = "person";
@@ -46,7 +50,8 @@ public class PersonController {
 		final Person p = personDAO.getById(id);
 		return new ResponseEntity<Person>(p, p == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}
-	
+
+	@ApiOperation(value="Method return all Persons", responseContainer = "List")
 	@RequestMapping(method=RequestMethod.GET, produces="application/json")
 	public @ResponseBody Person[] getAllPersons() {
 		log.debug("Get all persons");
