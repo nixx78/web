@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.*;
 
 import lv.nixx.poc.rest.domain.Person;
@@ -39,6 +40,7 @@ public class PersonDAO {
 		map.put(person.getId(), person);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public Person getById(int id) {
 		return map.get(id);
 	}
