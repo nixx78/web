@@ -26,7 +26,7 @@ import lv.nixx.poc.rest.util.RestRequest;
 @SpringBootTest(classes = Application.class, webEnvironment=WebEnvironment.DEFINED_PORT)
 public class PersonControllerTest {
 	
-	private final String URL = "http://localhost:8080/person";
+	private final String URL = "http://localhost:8080/rest/person";
 	
 	private final String adminUserCridentials = "nixx:nixx_pass";
 	private final String questUserCridentials = "quest:quest_pass";

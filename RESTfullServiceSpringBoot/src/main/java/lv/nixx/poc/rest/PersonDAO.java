@@ -40,7 +40,7 @@ public class PersonDAO {
 		map.put(person.getId(), person);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_USER')")
+	//@PreAuthorize("hasRole('ROLE_USER')")
 	public Person getById(int id) {
 		return map.get(id);
 	}

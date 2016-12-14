@@ -43,7 +43,7 @@ public class PersonControllerMockTest {
 	@Test
 	public void addPersonUsingJSONString() throws Exception {
 		 this.mockMvc.perform(
-		            post("/person")
+		            post("/rest/person")
 		                    .content(PersonFixtures.createPersonJSON(1))
 		                    .contentType(MediaType.APPLICATION_JSON)
 		                    .accept(MediaType.APPLICATION_JSON))
@@ -54,7 +54,7 @@ public class PersonControllerMockTest {
 	
 	@Test
 	public void getPersonAndPrintBody() throws Exception {
-		 this.mockMvc.perform(get("/person/{id}",1)
+		 this.mockMvc.perform(get("/rest/person/{id}",1)
 				.accept(MediaType.APPLICATION_JSON))
 		 		.andDo(print());
 		
@@ -63,7 +63,7 @@ public class PersonControllerMockTest {
 	@Test
 	public void getMethodTest() throws Exception{
 		
-		 this.mockMvc.perform(get("/person/{id}",2)
+		 this.mockMvc.perform(get("/rest/person/{id}",2)
 		       .accept(MediaType.APPLICATION_JSON))
 		       .andExpect(jsonPath("$.id").value(2))
 		       .andExpect(jsonPath("$.name").value("person.name"))

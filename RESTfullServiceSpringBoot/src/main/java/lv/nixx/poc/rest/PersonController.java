@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(value="CRUD Operations for entity Person")
 public class PersonController {
 	
-	static final String BASE_URL = "person";
+	static final String BASE_URL = "rest/person";
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
