@@ -1,0 +1,24 @@
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+th, td {
+  padding: 10px 15px;
+  vertical-align: middle;
+}
+
+.data_row:hover {
+  background-color: #9292ef;
+}
+
+td {
+  border-bottom: 0px;
+  border-right: 0px;
+}
+
+.text-offset {
+  color: #7c7c80;
+  font-size: 12px;
+}

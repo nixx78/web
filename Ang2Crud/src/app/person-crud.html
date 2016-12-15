@@ -1,0 +1,18 @@
+<h1>{{title}}</h1>
+
+<div>
+
+<table>
+   <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Surname</th>
+   </tr>
+   <tr *ngFor="let person of persons" class="data_row">
+    <td>{{person.id}}</td>
+    <td>{{person.name}}</td>
+    <td>{{person.surname}}</td>
+  </tr>
+ </table>
+
+</div>
