@@ -23,6 +23,28 @@ export class PersonService {
            .catch(this.handleError);
   }
 
+  save(person: Person): Promise<void> {
+    const url = `${this.personUrl}/${person.id}`;
+    return this.http
+      .put(url, JSON.stringify(person), {headers: this.headers})
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);
+
+  }
+
+
+  delete(person: Person): Promise<Person> {
+    const url = `${this.personUrl}/${person.id}`;
+    return this.http
+      .delete(url, {headers: this.headers})
+      .toPromise()
+      .then(() => person)
+      .catch(this.handleError);
+
+  }
+
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

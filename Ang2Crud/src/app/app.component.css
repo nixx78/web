@@ -6,19 +6,22 @@ table {
 
 th, td {
   padding: 10px 15px;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .data_row:hover {
   background-color: #9292ef;
 }
 
+
 td {
   border-bottom: 0px;
   border-right: 0px;
 }
 
-.text-offset {
-  color: #7c7c80;
-  font-size: 12px;
+.selected {
+  background-color: #c4c4ed !important;
+  color: white;
 }
+
+
