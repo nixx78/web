@@ -67,8 +67,9 @@ public class PersonController {
 	}
 		
 	@RequestMapping(method=RequestMethod.DELETE, value="/{id}")
-	public @ResponseBody void removePerson(@PathVariable String id) {
+	public @ResponseBody void removePerson(@PathVariable Integer id) {
 		log.debug("remove person, id [{}]", id);
+		personDAO.delete(id);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/delete")

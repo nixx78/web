@@ -45,6 +45,10 @@ public class PersonDAO {
 		return map.get(id);
 	}
 	
+	public void delete(Integer id) {
+		map.remove(id);
+	}
+	
 	public void update(Person person) {
 		map.put(person.getId(), person);
 	}
