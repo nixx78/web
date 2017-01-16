@@ -11,10 +11,10 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.*;
 
 import lv.nixx.poc.rest.domain.Person;
+import lv.nixx.poc.rest.exception.PersonNotFoundException;
 
 @Component
 public class PersonDAO {
@@ -42,7 +42,10 @@ public class PersonDAO {
 	
 	//@PreAuthorize("hasRole('ROLE_USER')")
 	public Person getById(int id) {
-		return map.get(id);
+		if ( map.containsKey(id) ) {
+			return map.get(id);
+		}
+		throw new PersonNotFoundException("Person with id [" + id + "] not found");  
 	}
 	
 	public void delete(Integer id) {

@@ -1,7 +1,9 @@
 package lv.nixx.poc.rest;
 
 import java.util.*;
+
 import lv.nixx.poc.rest.domain.Person;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,19 +38,15 @@ public class PersonController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{id}/xml", produces="application/xml")
-	public @ResponseBody  ResponseEntity<Person> getPersonAsXML(@PathVariable int id) {
+	public @ResponseBody  Person getPersonAsXML(@PathVariable int id) {
 		log.debug("Get person by id [{}] as XML", id);
-		
-		final Person p = personDAO.getById(id);
-		return new ResponseEntity<Person>(p, p == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+		return personDAO.getById(id);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{id}", produces="application/json")
-	public @ResponseBody ResponseEntity<Person> getPerson(@PathVariable(name="id") int id) {
+	public @ResponseBody Person getPerson(@PathVariable(name="id") int id) {
 		log.debug("Get person by id [{}]", id);
-
-		final Person p = personDAO.getById(id);
-		return new ResponseEntity<Person>(p, p == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+		return personDAO.getById(id);
 	}
 
 	@ApiOperation(value="Method return all Persons", responseContainer = "List")
@@ -96,6 +94,11 @@ public class PersonController {
 		}
 
 		return new ResponseEntity<String>(batchId.toString(), HttpStatus.NOT_FOUND);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/search")
+	public @ResponseBody ResponseEntity<Person> searchPerson() {
+		throw new IllegalStateException("Method 'searchPerson' not yet supported");
 	}
 	
 }
