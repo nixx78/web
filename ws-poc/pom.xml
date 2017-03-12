@@ -25,7 +25,7 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-ws</artifactId>
 		</dependency>
 
 		<dependency>
@@ -36,5 +36,39 @@
 
 	</dependencies>
 
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- Package to store the generated file -->
+					<packageName>lv.nixx.poc.wsdl.currency</packageName>
+					<!-- Treat the input as WSDL -->
+					<wsdl>true</wsdl>
+					<!-- Input is not XML schema -->
+					<xmlschema>false</xmlschema>
+					<!-- The WSDL file that you saved earlier -->
+					<schemaFiles>currency.wsdl</schemaFiles>
+					<!-- The location of the WSDL file -->
+					<schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
+					<!-- The output directory to store the generated Java files -->
+					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+					<!-- Don't clear output directory on each run -->
+					<clearOutputDir>false</clearOutputDir>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
