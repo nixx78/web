@@ -1,4 +1,4 @@
-package lv.nixx.poc.sync2asynch.service;
+package lv.nixx.poc.sync2async.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ApplicationLifesycleListener implements ApplicationListener<ContextRefreshedEvent> {
 	
 	@Autowired
-	ConsumerService consumerService;
+	ExternalSystemQueuePooler consumerService;
 	
 	@Autowired
 	ThreadPoolTaskExecutor taskExecutor;

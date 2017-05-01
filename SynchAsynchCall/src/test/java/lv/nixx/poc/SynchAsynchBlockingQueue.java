@@ -8,6 +8,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 
+import lv.nixx.poc.sync2async.domain.RequestResponse;
+
 public class SynchAsynchBlockingQueue {
 
 	AtomicInteger idProvider = new AtomicInteger(0);
@@ -44,7 +46,7 @@ public class SynchAsynchBlockingQueue {
 			Thread currentThread = Thread.currentThread();
 			while(!currentThread.isInterrupted()) {
 				int id = idProvider.getAndIncrement();
-				RequestResponse r = new RequestResponse(id, "req." + System.currentTimeMillis(), null);
+				RequestResponse r = new RequestResponse(id, "req." + System.currentTimeMillis());
 				if ( bq.offer(r) ) {
 					System.out.println("Thread [" + currentThread.getName() + "] send [" + r + "]");
 					synchronized (r) {
@@ -89,24 +91,6 @@ public class SynchAsynchBlockingQueue {
 					currentThread.interrupt();
 				}
 			}
-		}
-
-	}
-
-	class RequestResponse {
-		int id;
-		String request;
-		String response;
-
-		public RequestResponse(int id, String request, String response) {
-			this.id = id;
-			this.request = request;
-			this.response = response;
-		}
-
-		@Override
-		public String toString() {
-			return "RequestResponse [id=" + id + ", request=" + request + ", response=" + response + "]";
 		}
 
 	}

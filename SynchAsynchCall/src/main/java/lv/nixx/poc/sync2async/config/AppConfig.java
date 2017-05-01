@@ -1,4 +1,4 @@
-package lv.nixx.poc.sync2asynch.config;
+package lv.nixx.poc.sync2async.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
