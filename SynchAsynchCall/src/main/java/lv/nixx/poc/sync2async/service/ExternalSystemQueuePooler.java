@@ -9,26 +9,29 @@ import lv.nixx.poc.sync2async.domain.RequestResponse;
 
 @Component
 public class ExternalSystemQueuePooler implements Runnable {
-	
+
+	private static final Logger log = LoggerFactory.getLogger(ExternalSystemQueuePooler.class);
+
 	@Autowired
 	QueueProvider queueProvider;
-
-	Logger LOG = LoggerFactory.getLogger(ExternalSystemQueuePooler.class);
+	
+	@Autowired
+	ExternalSystem externalSystem;
 
 	@Override
 	public void run() {
-		LOG.info("Pooler thread is started");
+		log.info("Pooler thread is started");
 		Thread currentThread = Thread.currentThread();
 		while (!currentThread.isInterrupted()) {
 			try {
 				RequestResponse r = queueProvider.take();
 				synchronized (r) {
-					r.response = r.request + ":resp";
-					
-					LOG.info("For id [{}] response is created", r.id);
+					r.response = externalSystem.processRequest(r.request); 
+					log.info("For id [{}] response is created", r.id);
 					r.notify();
 				}
 			} catch (InterruptedException e) {
+				log.info("Shutdown request received, queue size [{}]", queueProvider.size());
 				currentThread.interrupt();
 			}
 		}

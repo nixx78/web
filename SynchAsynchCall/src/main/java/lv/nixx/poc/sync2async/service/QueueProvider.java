@@ -19,5 +19,9 @@ public class QueueProvider {
 	public RequestResponse take() throws InterruptedException {
 		return queue.take();
 	}
+	
+	public int size() {
+		return queue.size();
+	}
 
 }
