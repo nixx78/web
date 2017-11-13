@@ -7,7 +7,10 @@ import static org.junit.Assert.assertNotNull;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +22,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
 
+import lv.nixx.poc.rest.domain.Action;
+import lv.nixx.poc.rest.domain.Operation;
 import lv.nixx.poc.rest.domain.Person;
+import lv.nixx.poc.rest.domain.Status;
 import lv.nixx.poc.rest.util.RestRequest;
 
 @RunWith(SpringRunner.class)
@@ -69,6 +75,27 @@ public class PersonControllerTest {
 		
 		System.out.println("HTTP header 'Location' " + location);
 		System.out.println("created person " + p + " status " + statusCode );
+	}
+	
+	@Test
+	public void processActions() {
+		
+		List<Action<String, Person>> actions = Arrays.asList( 
+				new Action<String, Person>(null, new Person("name", "surname", new Date()), Operation.ADD),
+				new Action<String, Person>("10", new Person("name", "surname", new Date()), Operation.UPDATE),
+				new Action<String, Person>("10", null, Operation.DELETE)
+				);
+
+		RestRequest r = RestRequest.builder()
+				.toURL(URL+ "/processActions")
+				.withData(actions)
+				.withBasicAuthentication(adminUserCridentials)
+				.expectedResponseType(List.class)
+				.build();
+		
+		ResponseEntity<List<Action<String, Person>>> response = r.postForEntity();
+		List<Action<String, Person>> respActions = response.getBody();
+		System.out.println(respActions);
 	}
 	
 	@Test

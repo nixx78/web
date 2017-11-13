@@ -2,7 +2,9 @@ package lv.nixx.poc.rest;
 
 import java.util.*;
 
+import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Person;
+import lv.nixx.poc.rest.domain.Status;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +37,16 @@ public class PersonController {
         headers.setLocation(builder.path("/person/{id}").buildAndExpand(p.getId()).toUri());
 		
 		return new ResponseEntity<Person>(p, headers, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="processActions", consumes="application/json")
+	public @ResponseBody List<Action<String, Person>> processActions(@RequestBody List<Action<String, Person>> actions) {
+		log.debug("Actions" + actions);
+		
+		actions.stream().forEach( t -> t.setStatus(Status.SUCCESS));
+		
+		return actions;
+		
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{id}/xml", produces="application/xml")
