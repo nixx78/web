@@ -21,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Operation;
@@ -162,30 +163,8 @@ public class PersonControllerTest {
 			throw ex;
 		}	
 	}
-//	
-//	@Test
-//	public void getPersonAsObject(){
-//		ResponseEntity<Person> p =  getForEntity(URL + "/{id}", adminUserCridentials, Person.class, 2);
-//		
-//		assertNotNull(p);
-//		System.out.println("person: " + p.getBody());
-//		
-//		HttpHeaders outHeaders = p.getHeaders();
-//		List<String> c = outHeaders.get("Set-Cookie");
-//		System.out.println(outHeaders);
-//		
-//		HttpHeaders  headers = new HttpHeaders();
-//        headers.set("Cookie", c.stream().collect(Collectors.joining(";")));
-//        
-//        HttpEntity<String> request = new HttpEntity<String>(headers);
-//
-//        p = restTemplate.exchange(URL + "/{id}", HttpMethod.GET, request, Person.class, 2);
-//		assertNotNull(p);
-//		System.out.println("person: " + p.getBody());
-//	}
-//	
 
-	@Test(expected = HttpClientErrorException.class)
+	@Test(expected = HttpServerErrorException.class)
 	public void tryGetNotExistingPerson(){
 		try {
 			RestRequest r = RestRequest.builder()
@@ -196,8 +175,8 @@ public class PersonControllerTest {
 					.build();
 
 			r.getForEntity();
-		} catch (HttpClientErrorException ex){
-			assertEquals(HttpStatus.NOT_FOUND, ex.getStatusCode() );
+		} catch (HttpServerErrorException ex){
+			assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, ex.getStatusCode() );
 			System.out.println(ex.getStatusCode() + " " + ex.getStatusText());
 			throw ex;
 		}
