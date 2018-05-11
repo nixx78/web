@@ -7,13 +7,18 @@ import lv.nixx.poc.crud.model.rest.BaseRequest;
 import lv.nixx.poc.crud.model.rest.BaseResponse;
 import lv.nixx.poc.crud.model.rest.Response;
 
-public abstract class GenericCrudService<ID_TYPE, T extends BaseRequest<ID_TYPE>, V extends BaseResponse, K extends BaseInternalModel> {
+public abstract class GenericCrudService<ID_TYPE, T extends BaseRequest<ID_TYPE>, V extends BaseResponse, K extends BaseInternalModel<ID_TYPE>> {
 
 	protected abstract Collection<K> loadDataToInternalModels();
+
 	protected abstract K map(Object entity);
-	protected abstract void enrichWithHazelcastData(Collection<K> internalModel);
+
+	protected abstract void enrichWithHazelcastData(K internalModel);
+
 	protected abstract void enrichWithOnlineData(Collection<K> internalModel);
+
 	protected abstract void saveDataToHazelcast(Collection<K> internalModel);
+
 	protected abstract Collection<V> convertToRestResponse(Collection<K> internalModel);
 
 	public Response<ID_TYPE> add(T request) {
@@ -38,7 +43,10 @@ public abstract class GenericCrudService<ID_TYPE, T extends BaseRequest<ID_TYPE>
 
 	public Collection<V> getInitialData() {
 		Collection<K> loadDataToInternalModels = loadDataToInternalModels();
-		enrichWithHazelcastData(loadDataToInternalModels);
+		
+		loadDataToInternalModels.forEach(this::enrichWithHazelcastData);
+		
+		//enrichWithHazelcastData(loadDataToInternalModels);
 		enrichWithOnlineData(loadDataToInternalModels);
 		saveDataToHazelcast(loadDataToInternalModels);
 		return convertToRestResponse(loadDataToInternalModels);

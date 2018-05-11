@@ -1,5 +1,10 @@
 package lv.nixx.poc.crud.model.hazelcast;
 
-public class BaseHazelcastModel {
+import lombok.Data;
+
+@Data
+public class BaseHazelcastModel<T> {
+	
+	private T entityId;
 
 }

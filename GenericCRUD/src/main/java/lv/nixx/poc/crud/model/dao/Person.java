@@ -12,7 +12,6 @@ public class Person {
 	private String surname;
 	private Date dateOfBirth;
 
-
 	@Override
 	public String toString() {
 		return "Person [id=" + id + ", name=" + name + ", surname=" + surname + ", dateOfBirth=" + dateOfBirth + "]";
