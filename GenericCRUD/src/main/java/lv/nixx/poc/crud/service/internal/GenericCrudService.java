@@ -13,7 +13,7 @@ public abstract class GenericCrudService<ID_TYPE, T extends BaseRequest<ID_TYPE>
 
 	protected abstract K map(Object entity);
 
-	protected abstract void enrichWithHazelcastData(K internalModel);
+	protected abstract void enrichWithHazelcastData(Collection<K> internalModel);
 
 	protected abstract void enrichWithOnlineData(Collection<K> internalModel);
 
@@ -43,10 +43,8 @@ public abstract class GenericCrudService<ID_TYPE, T extends BaseRequest<ID_TYPE>
 
 	public Collection<V> getInitialData() {
 		Collection<K> loadDataToInternalModels = loadDataToInternalModels();
-		
-		loadDataToInternalModels.forEach(this::enrichWithHazelcastData);
-		
-		//enrichWithHazelcastData(loadDataToInternalModels);
+
+		enrichWithHazelcastData(loadDataToInternalModels);
 		enrichWithOnlineData(loadDataToInternalModels);
 		saveDataToHazelcast(loadDataToInternalModels);
 		return convertToRestResponse(loadDataToInternalModels);

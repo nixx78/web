@@ -1,23 +1,27 @@
 package lv.nixx.poc.crud.service.internal;
 
 import java.util.Collection;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lv.nixx.poc.crud.model.dao.Person;
-import lv.nixx.poc.crud.model.rest.PersonOperation;
+import lv.nixx.poc.crud.model.hazelcast.PersonHazelcastModel;
+import lv.nixx.poc.crud.model.rest.PersonOperationRequest;
 import lv.nixx.poc.crud.model.rest.PersonResponse;
 import lv.nixx.poc.crud.service.HazelcastService;
 import lv.nixx.poc.crud.service.dao.PersonDao;
 
 @Service
-public class PersonCrudService extends GenericCrudService<String, PersonOperation, PersonResponse, PersonInternalModel> {
+public class PersonCrudService
+		extends GenericCrudService<String, PersonOperationRequest, PersonResponse, PersonInternalModel> {
 
 	private PersonDao dao;
 	private HazelcastService hazelcastService;
-	
+
 	@Autowired
 	public void setDao(PersonDao dao) {
 		this.dao = dao;
@@ -37,7 +41,6 @@ public class PersonCrudService extends GenericCrudService<String, PersonOperatio
 	protected PersonInternalModel map(Object entity) {
 
 		Person person = (Person) entity;
-
 		PersonInternalModel model = new PersonInternalModel(person.getId());
 		model.setName(person.getName());
 		model.setSurname(person.getSurname());
@@ -47,26 +50,37 @@ public class PersonCrudService extends GenericCrudService<String, PersonOperatio
 	}
 
 	@Override
-	protected void enrichWithHazelcastData(PersonInternalModel internalModel) {
-		// TODO Auto-generated method stub
+	protected void enrichWithHazelcastData(Collection<PersonInternalModel> internalModel) {
+
+		Map<String, PersonHazelcastModel> modelMap = hazelcastService.getAllPersonModels()
+				.stream()
+				.collect(Collectors.toMap(PersonHazelcastModel::getEntityId, Function.identity()));
+
+		internalModel.forEach(m -> {
+			String id = m.getId();
+
+			PersonHazelcastModel hm = modelMap.getOrDefault(id, null);
+			if (hm != null) {
+				m.setOverride1(hm.getOverride1());
+				m.setOnline2(hm.getOverride2());
+			}
+
+		});
+
 	}
 
 	@Override
 	protected void enrichWithOnlineData(Collection<PersonInternalModel> internalModel) {
-		
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	protected void saveDataToHazelcast(Collection<PersonInternalModel> internalModel) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	protected Collection<PersonResponse> convertToRestResponse(Collection<PersonInternalModel> internalModel) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

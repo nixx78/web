@@ -15,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import lv.nixx.poc.crud.model.dao.Person;
 import lv.nixx.poc.crud.model.rest.PersonResponse;
+import lv.nixx.poc.crud.service.HazelcastService;
 import lv.nixx.poc.crud.service.dao.PersonDao;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,6 +27,9 @@ public class PersonCrudServiceTest {
 	
 	@Mock
 	private PersonDao personDao;
+	
+	@Spy
+	private HazelcastService hazelcastService;
 		
 	@Test
 	public void getInitialDataTest() {
@@ -36,6 +40,7 @@ public class PersonCrudServiceTest {
 		when(personDao.getAllPersons()).thenReturn(Arrays.asList(p1, p2));
 		
 		Collection<PersonResponse> initialData = service.getInitialData();
+		
 	
 	}
 
