@@ -1,11 +1,12 @@
-package lv.nixx.poc.crud.service.internal;
+package lv.nixx.poc.crud.model.internal;
 
 import java.util.Date;
 
 import lombok.Data;
-import lv.nixx.poc.crud.model.internal.BaseInternalModel;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper= false)
 public class PersonInternalModel extends BaseInternalModel<String> {
 
 	public PersonInternalModel(String id) {
