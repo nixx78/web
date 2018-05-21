@@ -1,9 +1,19 @@
 package lv.nixx.poc.crud.service.internal;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
-class ToDtoConverter<X, K, ID_TYPE, T, V> {
-	Collection<X> convertToDto(Collection<K> entities){
-		return null;
+import org.springframework.stereotype.Service;
+
+@Service
+public abstract class ToDtoConverter<K, V> {
+	
+	public Collection<V> convertToDto(Collection<K> entities){
+		return entities.stream()
+				.map(this::map)
+				.collect(Collectors.toList());
 	}
+	
+	protected abstract V map(K internalModel);
+	
 }

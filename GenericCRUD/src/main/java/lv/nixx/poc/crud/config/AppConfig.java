@@ -2,22 +2,16 @@ package lv.nixx.poc.crud.config;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
-import lv.nixx.poc.crud.service.person.PersonCrudService;
-import lv.nixx.poc.crud.service.person.PersonDataLoader;
-
 @Configuration
 public class AppConfig {
 	
-	@Autowired
-	public PersonDataLoader personLoader;
-
+	
 	@Bean
 	public DataSource dataSource() {
 
@@ -30,13 +24,5 @@ public class AppConfig {
 		return db;
 	}
 	
-	@Bean
-	public PersonCrudService personCrudService() {
-		
-		PersonCrudService s = new PersonCrudService();
-		s.setDataLoader(personLoader);
-		
-		return s;
-	}
 
 }

@@ -1,6 +1,7 @@
 package lv.nixx.poc.crud.service.person;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,17 @@ public class PersonDataLoader extends DataLoader<PersonInternalModel>{
 
 	@Override
 	public Collection<PersonInternalModel> load() {
-//		return dao.getAllPersons();
-		return null;
+		
+		Collection<Person> allPersons = dao.getAllPersons();
+		
+		return allPersons.stream().map( p -> {
+			PersonInternalModel m = new PersonInternalModel(p.getId());
+			m.setName(p.getName());
+			m.setSurname(p.getSurname());
+			m.setDateOfBirth(p.getDateOfBirth());
+			return m;
+		}).collect(Collectors.toList());
+		
 	}
 
 }

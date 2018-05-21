@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -33,6 +34,7 @@ public class PersonCrudServiceTest {
 	private HazelcastService hazelcastService;
 		
 	@Test
+	@Ignore
 	public void getInitialDataTest() {
 		
 		Person p1 = new Person();
