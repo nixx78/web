@@ -14,11 +14,11 @@ import lv.nixx.poc.crud.service.person.PersonToDtoConverter;
 @Configuration
 public class PersonCrudServiceConfig {
 
-	public PersonDataLoader personLoader;
-	public PersonHazelcastEnricher personHazelcastEnricher;
-	public PersonHazelcastSaver personHazelcastSaverSaver;
-	public PersonToDtoConverter personToDtoConverter;
-	public PersonOnlineEnricher personOnlineEnricher;
+	private PersonDataLoader personLoader;
+	private PersonHazelcastEnricher personHazelcastEnricher;
+	private PersonHazelcastSaver personHazelcastSaverSaver;
+	private PersonToDtoConverter personToDtoConverter;
+	private PersonOnlineEnricher personOnlineEnricher;
 
 	@Autowired
 	public void setPersonLoader(PersonDataLoader personLoader) {

@@ -10,9 +10,18 @@ import lv.nixx.poc.crud.service.HazelcastService;
 @Service
 public abstract class HazelcastEnricher<K> {
 	
-	@Autowired
-	public HazelcastService hazelcastService;
+	private HazelcastService hazelcastService;
 	
+	
+	@Autowired
+	public void setHazelcastService(HazelcastService hazelcastService) {
+		this.hazelcastService = hazelcastService;
+	}
+	
+	protected HazelcastService hazelcastService() {
+		return this.hazelcastService;
+	}
+
 	public abstract Collection<K> enrich(Collection<K> entities);
 	
 	

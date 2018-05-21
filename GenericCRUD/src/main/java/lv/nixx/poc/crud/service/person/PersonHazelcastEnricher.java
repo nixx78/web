@@ -5,16 +5,19 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import lv.nixx.poc.crud.model.hazelcast.PersonHazelcastModel;
 import lv.nixx.poc.crud.model.internal.PersonInternalModel;
 import lv.nixx.poc.crud.service.internal.*;
 
+@Service
 public class PersonHazelcastEnricher extends HazelcastEnricher<PersonInternalModel> {
 
 	@Override
 	public Collection<PersonInternalModel> enrich(Collection<PersonInternalModel> entities) {
 
-		Map<String, PersonHazelcastModel> modelsMap = hazelcastService.getAllPersonModels().stream()
+		Map<String, PersonHazelcastModel> modelsMap = hazelcastService().getAllPersonModels().stream()
 				.collect(Collectors.toMap(PersonHazelcastModel::getEntityId, Function.identity()));
 
 		for (PersonInternalModel pim : entities) {

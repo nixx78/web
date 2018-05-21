@@ -14,9 +14,13 @@ import lv.nixx.poc.crud.service.internal.DataLoader;
 @Service
 public class PersonDataLoader extends DataLoader<PersonInternalModel>{
 	
+	private PersonDao dao;
+	
 	@Autowired
-	public PersonDao dao;
-
+	public void setDao(PersonDao dao) {
+		this.dao = dao;
+	}
+	
 	@Override
 	public Collection<PersonInternalModel> load() {
 		
