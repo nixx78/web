@@ -1,4 +1,4 @@
-package lv.nixx.poc.crud.service.internal;
+package lv.nixx.poc.crud.service.person;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -79,8 +79,6 @@ public class PersonCrudServiceTest {
 		assertNotNull(initialData);
 		
 		System.out.println(initialData);
-		
-	
 	}
 
 }
