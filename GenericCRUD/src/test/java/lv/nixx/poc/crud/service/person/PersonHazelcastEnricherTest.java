@@ -21,6 +21,7 @@ public class PersonHazelcastEnricherTest {
 		
 		PersonHazelcastEnricher enricher = new PersonHazelcastEnricher();
 		HazelcastService hazelcastService = mock(HazelcastService.class);
+		
 		enricher.setHazelcastService(hazelcastService);
 		
 		

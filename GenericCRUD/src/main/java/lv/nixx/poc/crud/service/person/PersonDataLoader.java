@@ -18,8 +18,8 @@ public class PersonDataLoader extends DataLoader<PersonInternalModel>{
 	private PersonDao dao;
 	
 	@Autowired
-	public void setDao(PersonDao dao) {
-		this.dao = dao;
+	public void setDao(PersonDao personDao) {
+		this.dao = personDao;
 	}
 	
 	@Override
