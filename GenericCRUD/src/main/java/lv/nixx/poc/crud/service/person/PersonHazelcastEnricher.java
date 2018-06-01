@@ -17,33 +17,6 @@ public class PersonHazelcastEnricher extends HazelcastEnricher<String , PersonIn
 		return hazelcastService().getAllPersonModels();
 	}
 
-//
-//	@Override
-//	public Collection<PersonInternalModel> enrich(Collection<PersonInternalModel> entities) {
-//	
-//		// Possible the following situations:
-//		//  - Data exists in DB					- Add to Hazelcast
-//		//  - Data exists in DB && Hazelcast	- update internal model, not save to Hazelcast
-//		//  - Data exists in Hazelcast only		- update internal model, not save to Hazelcast
-//		
-//		Map<String, PersonInternalModel> dbEntitiesMap = entities.stream().collect(Collectors.toMap(PersonInternalModel::getId, Function.identity()));
-//		
-//		for (PersonHazelcastModel hm: getHazelcastData()) {
-//
-//			String entityId = hm.getEntityId();
-//			if (dbEntitiesMap.containsKey(entityId)) {
-//				PersonInternalModel pim = dbEntitiesMap.get(entityId);
-//				pim.setDataSource(DataSource.DB_HAZELCAST);
-//				enrich(pim, hm);
-//			} else {
-//				dbEntitiesMap.put(entityId, createInternalModel(hm));
-//			}
-//			
-//		}
-//		
-//		return dbEntitiesMap.values();
-//	}
-//	
 
 	@Override
 	protected void enrich(PersonInternalModel personInternalModel, PersonHazelcastModel hazelcastModel) {

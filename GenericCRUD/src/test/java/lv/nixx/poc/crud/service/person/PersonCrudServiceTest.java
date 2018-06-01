@@ -14,10 +14,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lv.nixx.poc.crud.config.AppConfig;
+import lv.nixx.poc.crud.dao.PersonDao;
 import lv.nixx.poc.crud.model.dao.Person;
 import lv.nixx.poc.crud.model.rest.PersonResponse;
 import lv.nixx.poc.crud.service.TestContextConfiguration;
-import lv.nixx.poc.crud.service.dao.PersonDao;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

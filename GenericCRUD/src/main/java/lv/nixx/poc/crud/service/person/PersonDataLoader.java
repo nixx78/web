@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import lv.nixx.poc.crud.model.dao.Person;
 import lv.nixx.poc.crud.model.internal.DataSource;
 import lv.nixx.poc.crud.model.internal.PersonInternalModel;
-import lv.nixx.poc.crud.service.dao.PersonDao;
+import lv.nixx.poc.crud.dao.PersonDao;
 import lv.nixx.poc.crud.service.internal.DataLoader;
 
 @Service
