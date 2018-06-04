@@ -5,7 +5,7 @@ import java.util.Collections;
 
 import org.springframework.stereotype.Service;
 
-import lv.nixx.poc.crud.model.hazelcast.PersonHazelcastModel;
+import lv.nixx.poc.crud.person.service.PersonHazelcastModel;
 
 @Service
 public class HazelcastService {

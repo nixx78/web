@@ -5,7 +5,7 @@ import static org.mockito.Mockito.mock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import lv.nixx.poc.crud.dao.PersonDao;
+import lv.nixx.poc.crud.person.dao.PersonDao;
 
 @Configuration
 public class TestContextConfiguration {

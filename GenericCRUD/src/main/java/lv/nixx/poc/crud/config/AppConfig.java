@@ -10,7 +10,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 @Configuration
-@ComponentScan(basePackages="lv.nixx.poc.crud.service.**")
+@ComponentScan(basePackages="lv.nixx.poc.crud.**")
 public class AppConfig {
 	
 	@Bean

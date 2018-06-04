@@ -14,9 +14,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lv.nixx.poc.crud.config.AppConfig;
-import lv.nixx.poc.crud.dao.PersonDao;
-import lv.nixx.poc.crud.model.dao.Person;
-import lv.nixx.poc.crud.model.rest.PersonResponse;
+import lv.nixx.poc.crud.person.dao.PersonDao;
+import lv.nixx.poc.crud.person.model.Person;
+import lv.nixx.poc.crud.person.model.PersonResponse;
+import lv.nixx.poc.crud.person.service.PersonCrudService;
 import lv.nixx.poc.crud.service.TestContextConfiguration;
 
 

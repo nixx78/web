@@ -9,8 +9,9 @@ import java.util.Collection;
 
 import org.junit.Test;
 
-import lv.nixx.poc.crud.model.hazelcast.PersonHazelcastModel;
-import lv.nixx.poc.crud.model.internal.PersonInternalModel;
+import lv.nixx.poc.crud.person.model.PersonInternalModel;
+import lv.nixx.poc.crud.person.service.PersonHazelcastEnricher;
+import lv.nixx.poc.crud.person.service.PersonHazelcastModel;
 import lv.nixx.poc.crud.service.HazelcastService;
 
 public class PersonHazelcastEnricherTest {
