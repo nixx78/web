@@ -7,10 +7,9 @@ import static org.junit.Assert.assertNotNull;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +25,6 @@ import org.springframework.web.client.HttpServerErrorException;
 import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Operation;
 import lv.nixx.poc.rest.domain.Person;
-import lv.nixx.poc.rest.domain.Status;
 import lv.nixx.poc.rest.util.RestRequest;
 
 @RunWith(SpringRunner.class)

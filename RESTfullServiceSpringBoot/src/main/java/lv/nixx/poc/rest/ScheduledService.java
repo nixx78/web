@@ -14,8 +14,7 @@ public class ScheduledService {
 	
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Scheduled(cron="*/5 * * * * SUN-FRI")
-	@Scheduled(cron="*/17 * * * * SUN-FRI")
+	@Scheduled(cron="0 5 10 * * SUN-FRI")
 	public void fireScheduler() {
 		log.info("Fire event [{}]", new Date());
 	}
