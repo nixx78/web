@@ -1,7 +1,8 @@
 package lv.nixx.poc.react.restfull;
 
+import static org.springframework.http.MediaType.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -17,14 +18,21 @@ public class CrudOperationHandler {
 
 	public Mono<ServerResponse> getAllPersons(ServerRequest request) {
 
-		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+		return ServerResponse.ok()
+				.contentType(APPLICATION_JSON)
 				.body(BodyInserters.fromObject(crudService.getAllPersons()));
 
+	}
+	
+	public Mono<ServerResponse> getOnePersonById(ServerRequest request) {
+		Long id = Long.valueOf(request.pathVariable("id"));
+		return ServerResponse.ok()
+				.contentType(APPLICATION_JSON)
+				.body(BodyInserters.fromObject(crudService.getPerson(id)));
 	}
 
 	public Mono<ServerResponse> deletePerson(ServerRequest request) {
 		crudService.deletePerson(Long.valueOf(request.pathVariable("id")));
-		
 		return ServerResponse.ok().build();
 	}
 
