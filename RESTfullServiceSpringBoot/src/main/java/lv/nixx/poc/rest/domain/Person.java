@@ -1,11 +1,15 @@
 package lv.nixx.poc.rest.domain;
 
+import lombok.Data;
+import lombok.ToString;
+
 import java.util.*;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
+@ToString
 public class Person {
 
 	private int id;
@@ -13,7 +17,6 @@ public class Person {
 	private String surname;
 	private Date dateOfBirth;
 	
-	// this constructor without parameters is needed for JSON converter
 	public Person(){
 	}
 	
@@ -55,10 +58,5 @@ public class Person {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-	
-	@Override
-	public String toString(){
-		return id + ":" + name + ":" + surname + ":" + dateOfBirth;
-	}
-	
+
 }

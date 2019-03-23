@@ -22,7 +22,7 @@ public class ControllerWithCollback {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ControllerWithCollback.class);
 	
-	int port = 8080;
+	private int port = 8080;
 
 	@RequestMapping(method=RequestMethod.GET, value="/synchrequest/{id}")
 	public @ResponseBody String request(@PathVariable(name="id") String id) throws URISyntaxException {

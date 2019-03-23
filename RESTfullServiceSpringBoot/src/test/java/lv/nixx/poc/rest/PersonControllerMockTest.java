@@ -14,17 +14,17 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 
 import lv.nixx.poc.rest.domain.Person;
 
-@RunWith(MockitoJUnitRunner .class)
+@RunWith(MockitoJUnitRunner.class)
 public class PersonControllerMockTest {
 
-	MockMvc mockMvc;
+	private MockMvc mockMvc;
 	
 	@Mock
 	PersonDAO personDAO;
