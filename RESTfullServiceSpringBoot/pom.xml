@@ -15,7 +15,7 @@
 	</parent>
 
 	<properties>
-		<start-class>lv.nixx.poc.rest.Application</start-class>
+		<start-class>lv.nixx.poc.rest.RestSampleAppRunner</start-class>
 		<swagger.version>2.6.1</swagger.version>
 		<derby.version>10.11.1.1</derby.version>
 	</properties>

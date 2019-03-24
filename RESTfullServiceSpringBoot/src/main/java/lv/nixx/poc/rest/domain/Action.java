@@ -1,19 +1,24 @@
 package lv.nixx.poc.rest.domain;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @ToString
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Action<K, V> {
 
+	@NonNull
 	private K id;
-	private V body;
-	private Operation operation;
-	private Status status;
 
-	public Action() {
-	}
+	@NonNull
+	private V body;
+
+	@NonNull
+	private Operation operation;
+
+	@NonNull
+	private Status status;
 
 	public Action(K id, V body, Operation operation) {
 		this.id = id;

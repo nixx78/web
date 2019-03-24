@@ -27,7 +27,7 @@ import lv.nixx.poc.rest.domain.Operation;
 import lv.nixx.poc.rest.domain.Person;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class, webEnvironment=WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = RestSampleAppRunner.class, webEnvironment=WebEnvironment.DEFINED_PORT)
 public class PersonControllerTest {
 	
 	private final String URL = "http://localhost:8080/rest/person";
