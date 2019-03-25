@@ -8,21 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/sandbox")
-public class ControllerWithCollback {
+public class ControllerWithCallback {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(ControllerWithCollback.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ControllerWithCallback.class);
 	
-	int port = 8080;
+	private int port = 8080;
 
 	@RequestMapping(method=RequestMethod.GET, value="/synchrequest/{id}")
 	public @ResponseBody String request(@PathVariable(name="id") String id) throws URISyntaxException {
@@ -33,7 +28,7 @@ public class ControllerWithCollback {
 		return "synch:response:" + id + "#" + System.currentTimeMillis();
 	}
 
-	@RequestMapping(path="/asynchresponse", method=RequestMethod.POST)
+	@PostMapping("/asynchresponse")
 	public void callback(@RequestBody String request) {
 		LOG.info("asynch response [{}]", request);
 	}
@@ -45,7 +40,7 @@ public class ControllerWithCollback {
 	class AsynchResponse implements Runnable {
 
 		private String id;
-		public AsynchResponse(String id) {
+		AsynchResponse(String id) {
 			this.id = id;
 		}
 

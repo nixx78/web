@@ -25,10 +25,9 @@ import org.springframework.web.client.HttpServerErrorException;
 import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Operation;
 import lv.nixx.poc.rest.domain.Person;
-import lv.nixx.poc.rest.util.RestRequest;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class, webEnvironment=WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = RestSampleAppRunner.class, webEnvironment=WebEnvironment.DEFINED_PORT)
 public class PersonControllerTest {
 	
 	private final String URL = "http://localhost:8080/rest/person";
@@ -80,9 +79,9 @@ public class PersonControllerTest {
 	public void processActions() {
 		
 		List<Action<String, Person>> actions = Arrays.asList( 
-				new Action<String, Person>(null, new Person("name", "surname", new Date()), Operation.ADD),
-				new Action<String, Person>("10", new Person("name", "surname", new Date()), Operation.UPDATE),
-				new Action<String, Person>("10", null, Operation.DELETE)
+				new Action<>(null, new Person("name", "surname", new Date()), Operation.ADD),
+				new Action<>("10", new Person("name", "surname", new Date()), Operation.UPDATE),
+				new Action<>("10", null, Operation.DELETE)
 				);
 
 		RestRequest r = RestRequest.builder()
