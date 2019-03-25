@@ -2,22 +2,14 @@ package lv.nixx.poc.rest.domain;
 
 import lombok.*;
 
-@Data
 @ToString
+@Data
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class Action<K, V> {
 
-	@NonNull
 	private K id;
-
-	@NonNull
 	private V body;
-
-	@NonNull
 	private Operation operation;
-
-	@NonNull
 	private Status status;
 
 	public Action(K id, V body, Operation operation) {
@@ -25,4 +17,13 @@ public class Action<K, V> {
 		this.body = body;
 		this.operation = operation;
 	}
+
+    public Action(K id, V body, Operation operation, Status status) {
+        this.id = id;
+        this.body = body;
+        this.operation = operation;
+        this.status = status;
+    }
+
+
 }
