@@ -8,7 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -17,11 +18,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
+
+		final PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
 		auth.inMemoryAuthentication()
-				.withUser(User.withDefaultPasswordEncoder().username("quest").password("quest_pass").roles("USER"))
-				.withUser(User.withDefaultPasswordEncoder().username("nixx").password("nixx_pass").roles("ADMIN"));
-		
+				.passwordEncoder(encoder)
+				.withUser("quest").password(encoder.encode("quest_pass")).roles("USER")
+				.and()
+				.withUser("nixx").password(encoder.encode("nixx_pass")).roles("ADMIN");
+
 		SecurityContextHolder.clearContext();
 	}
 

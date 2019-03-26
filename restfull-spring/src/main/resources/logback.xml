@@ -49,7 +49,7 @@
 		<appender-ref ref="FileMain" />
 	</root>
 
-	<logger name="lv.nixx.poc.rest.PersonController" level="DEBUG" />
+	<logger name="lv.nixx.poc.rest.controller.PersonController" level="DEBUG" />
 	
 	<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG">
 	    <appender-ref ref="Audit"/>

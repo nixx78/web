@@ -1,4 +1,4 @@
-package lv.nixx.poc.rest;
+package lv.nixx.poc.rest.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @RequestMapping("/")
 public class EndpointDocController {
 
-    private Logger log = LoggerFactory.getLogger(EndpointDocController.class);
+    private final Logger log = LoggerFactory.getLogger(EndpointDocController.class);
 
     private final RequestMappingHandlerMapping handlerMapping;
 

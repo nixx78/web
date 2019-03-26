@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 import static org.mockito.Mockito.*;
 
+import lv.nixx.poc.rest.controller.PersonController;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -30,7 +31,7 @@ public class PersonControllerMockTest {
 	PersonDAO personDAO;
 
 	@InjectMocks
-	PersonController controller;
+    PersonController controller;
 	
 	@Before
 	public void setup() {

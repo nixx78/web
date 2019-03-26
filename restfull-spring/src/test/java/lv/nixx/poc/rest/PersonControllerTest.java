@@ -27,15 +27,14 @@ import lv.nixx.poc.rest.domain.Operation;
 import lv.nixx.poc.rest.domain.Person;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = RestSampleAppRunner.class, webEnvironment=WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = RestAppRunner.class, webEnvironment=WebEnvironment.DEFINED_PORT)
 public class PersonControllerTest {
 	
 	private final String URL = "http://localhost:8080/rest/person";
 	
-	private final String adminUserCridentials = "nixx:nixx_pass";
-	private final String questUserCridentials = "quest:quest_pass";
+	private final String adminUserCredentials = "nixx:nixx_pass";
+	private final String questUserCredentials = "quest:quest_pass";
 
-	
 	@Test
 	public void getAllPersons() {
 		RestRequest r = RestRequest.builder()
@@ -48,8 +47,7 @@ public class PersonControllerTest {
 		assertNotNull(response);
 		Arrays.stream(response.getBody()).forEach(System.out::println);
 	}
-	
-	
+
 	@Test
 	public void addPerson(){
 		Person p = new Person("name", "surname", new Date());
@@ -57,7 +55,7 @@ public class PersonControllerTest {
 		RestRequest r = RestRequest.builder()
 				.toURL(URL)
 				.withData(p)
-				.withBasicAuthentication(adminUserCridentials)
+				.withBasicAuthentication(adminUserCredentials)
 				.expectedResponseType(Person.class)
 				.build();
 		
@@ -87,7 +85,7 @@ public class PersonControllerTest {
 		RestRequest r = RestRequest.builder()
 				.toURL(URL+ "/processActions")
 				.withData(actions)
-				.withBasicAuthentication(adminUserCridentials)
+				.withBasicAuthentication(adminUserCredentials)
 				.expectedResponseType(List.class)
 				.build();
 		
@@ -107,7 +105,7 @@ public class PersonControllerTest {
 				.toURL(URL + "/{id}")
 				.withURLVariables(id)
 				.withData(p)
-				.withBasicAuthentication(adminUserCridentials)
+				.withBasicAuthentication(adminUserCredentials)
 				.expectedResponseType(Person.class)
 				.build();
 		
@@ -120,7 +118,7 @@ public class PersonControllerTest {
 		RestRequest r = RestRequest.builder()
 				.toURL(URL + "/{id}")
 				.withURLVariables(4)
-				.withBasicAuthentication(adminUserCridentials)
+				.withBasicAuthentication(adminUserCredentials)
 				.build();
 		
 		r.delete();
@@ -132,7 +130,7 @@ public class PersonControllerTest {
 		RestRequest r = RestRequest.builder()
 				.toURL(URL + "/{id}/xml")
 				.withURLVariables(1)
-				.withBasicAuthentication(adminUserCridentials)
+				.withBasicAuthentication(adminUserCredentials)
 				.expectedResponseType(String.class)
 				.build();
 		
@@ -167,7 +165,7 @@ public class PersonControllerTest {
 			RestRequest r = RestRequest.builder()
 					.toURL(URL + "/{id}")
 					.withURLVariables(2000)
-					.withBasicAuthentication(adminUserCridentials)
+					.withBasicAuthentication(adminUserCredentials)
 					.expectedResponseType(Person.class)
 					.build();
 
@@ -184,7 +182,7 @@ public class PersonControllerTest {
 		RestRequest r = RestRequest.builder()
 				.toURL(URL + "/{id}")
 				.withURLVariables(2)
-				.withBasicAuthentication(questUserCridentials)
+				.withBasicAuthentication(questUserCredentials)
 				.expectedResponseType(String.class)
 				.build();
 		
@@ -203,7 +201,7 @@ public class PersonControllerTest {
 				.toURL(URL + "/{id}")
 				.withURLVariables(id)
 				.withData(createPersonJSON(id))
-				.withBasicAuthentication(adminUserCridentials)
+				.withBasicAuthentication(adminUserCredentials)
 				.withMediaType(MediaType.APPLICATION_JSON)
 				.expectedResponseType(String.class)
 				.build();
@@ -220,7 +218,7 @@ public class PersonControllerTest {
 				.toURL(URL + "/{id}")
 				.withURLVariables(id)
 				.withData(createPersonXML(id))
-				.withBasicAuthentication(adminUserCridentials)
+				.withBasicAuthentication(adminUserCredentials)
 				.withMediaType(MediaType.APPLICATION_XML)
 				.expectedResponseType(String.class)
 				.build();
@@ -237,7 +235,7 @@ public class PersonControllerTest {
 		RestRequest r = RestRequest.builder()
 				.toURL(URL + "/delete")
 				.withData(ids)
-				.withBasicAuthentication(adminUserCridentials)
+				.withBasicAuthentication(adminUserCredentials)
 				.build();
 
 		URI postForLocation = r.postForLocation();
@@ -245,7 +243,7 @@ public class PersonControllerTest {
 		
 		r = RestRequest.builder()
 				.toURL(postForLocation.toString())
-				.withBasicAuthentication(adminUserCridentials)
+				.withBasicAuthentication(adminUserCredentials)
 				.expectedResponseType(String.class)
 				.build();
 		
@@ -259,7 +257,7 @@ public class PersonControllerTest {
 			RestRequest r = RestRequest.builder()
 					.toURL(URL + "/delete/{batchId}")
 					.withURLVariables(UUID.randomUUID())
-					.withBasicAuthentication(adminUserCridentials)
+					.withBasicAuthentication(adminUserCredentials)
 					.build();
 			
 			r.delete();

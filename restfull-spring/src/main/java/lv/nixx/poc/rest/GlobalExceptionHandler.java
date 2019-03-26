@@ -14,9 +14,9 @@ import lv.nixx.poc.rest.domain.ErrorResponse;
 import lv.nixx.poc.rest.exception.PersonNotFoundException;
 
 @ControllerAdvice
-public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	
-	private static final Logger log = LoggerFactory.getLogger(GlobalErrorHandler.class);
+	private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 	
 	@ExceptionHandler(value={PersonNotFoundException.class})
 	protected ResponseEntity<Object> persistenceExceptionHandler(RuntimeException e, WebRequest request) {

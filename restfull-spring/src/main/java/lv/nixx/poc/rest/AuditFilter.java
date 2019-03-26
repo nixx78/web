@@ -1,7 +1,6 @@
 package lv.nixx.poc.rest;
 
 import java.io.*;
-import java.util.stream.Collectors;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -9,8 +8,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,12 +42,12 @@ public class AuditFilter implements Filter {
 	}
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
+	public void init(FilterConfig arg0) {
 	}
 	
 	class CopyPrintWriter extends PrintWriter {
 
-	    private StringBuilder copy = new StringBuilder();
+	    private final  StringBuilder copy = new StringBuilder();
 
 	    public CopyPrintWriter(Writer writer) {
 	        super(writer);

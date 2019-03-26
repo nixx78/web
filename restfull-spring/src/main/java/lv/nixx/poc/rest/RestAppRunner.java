@@ -7,15 +7,15 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.boot.SpringApplication;
 
 @SpringBootApplication
-public class RestSampleAppRunner extends SpringBootServletInitializer {
+public class RestAppRunner extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(RestSampleAppRunner.class, args);
+        SpringApplication.run(RestAppRunner.class, args);
     }
     
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(RestSampleAppRunner.class);
+		return application.sources(RestAppRunner.class);
 	}
 	
 }

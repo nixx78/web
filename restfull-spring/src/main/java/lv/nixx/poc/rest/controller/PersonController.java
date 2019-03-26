@@ -1,7 +1,8 @@
-package lv.nixx.poc.rest;
+package lv.nixx.poc.rest.controller;
 
 import java.util.*;
 
+import lv.nixx.poc.rest.PersonDAO;
 import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Person;
 import lv.nixx.poc.rest.domain.Status;
@@ -21,10 +22,9 @@ import io.swagger.annotations.ApiOperation;
 @Api(value="CRUD Operations for entity Person")
 public class PersonController {
 
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+	private static final Logger log = LoggerFactory.getLogger(PersonController.class);
 
 	static final String BASE_URL = "rest/person";
-
 
 	private PersonDAO personDAO;
 
@@ -41,14 +41,15 @@ public class PersonController {
 		HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/person/{id}").buildAndExpand(p.getId()).toUri());
 		
-		return new ResponseEntity<Person>(p, headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(p, headers, HttpStatus.CREATED);
 	}
 	
 	@PostMapping(value="processActions", consumes="application/json")
 	public @ResponseBody List<Action<String, Person>> processActions(@RequestBody List<Action<String, Person>> actions) {
-		log.debug("Actions" + actions);
+
+		log.debug("Actions [{}]", actions);
 		
-		actions.stream().forEach( t -> t.setStatus(Status.SUCCESS));
+		actions.forEach( t -> t.setStatus(Status.SUCCESS));
 		
 		return actions;
 		

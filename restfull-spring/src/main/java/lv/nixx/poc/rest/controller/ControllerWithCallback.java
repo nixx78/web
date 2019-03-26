@@ -1,7 +1,6 @@
-package lv.nixx.poc.rest;
+package lv.nixx.poc.rest.controller;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -17,10 +16,10 @@ public class ControllerWithCallback {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ControllerWithCallback.class);
 	
-	private int port = 8080;
+	private final int port = 8080;
 
 	@RequestMapping(method=RequestMethod.GET, value="/synchrequest/{id}")
-	public @ResponseBody String request(@PathVariable(name="id") String id) throws URISyntaxException {
+	public @ResponseBody String request(@PathVariable(name="id") String id)  {
 		LOG.info("Request with id: [{}]", id );
 		
 		sendAsynchResponse(id);
@@ -39,7 +38,7 @@ public class ControllerWithCallback {
 	
 	class AsynchResponse implements Runnable {
 
-		private String id;
+		private final String id;
 		AsynchResponse(String id) {
 			this.id = id;
 		}

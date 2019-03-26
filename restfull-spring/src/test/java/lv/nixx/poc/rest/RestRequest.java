@@ -19,7 +19,7 @@ public class RestRequest {
 	private Object[] urlVariables = new Object[]{};
 	private Class<?> responseType;
 	
-	private HttpHeaders headers = new HttpHeaders();
+	private final HttpHeaders headers = new HttpHeaders();
 	
 	public <T> ResponseEntity<T> getForEntity() {
 		return execute(HttpMethod.GET);
@@ -49,44 +49,44 @@ public class RestRequest {
 	}
 	
 	
-	public static Builder builder() {
+	static Builder builder() {
 		return new RestRequest().new Builder();
 	}
 	
-	public class Builder {
+	class Builder {
 		
-		public Builder toURL(String url) {
+		Builder toURL(String url) {
 			RestRequest.this.url = url;
 			return this;
 		}
 		
-		public Builder  withData(Object data) {
+		Builder  withData(Object data) {
 			RestRequest.this.data = data;
 			return this;
 		}
-		
-		public Builder expectedResponseType(Class<?> responseType) {
+
+		Builder expectedResponseType(Class<?> responseType) {
 			RestRequest.this.responseType = responseType;
 			return this;
 		}
-		
-		public Builder withURLVariables(Object... urlVariables) {
+
+		Builder withURLVariables(Object... urlVariables) {
 			RestRequest.this.urlVariables = urlVariables;
 			return this;
 		}
-		
-		public Builder withMediaType(MediaType mediaType) {
+
+		Builder withMediaType(MediaType mediaType) {
 			headers.setContentType(mediaType);
 			return this;
 		}
-		
-		public Builder withBasicAuthentication(String credentials) {
+
+		Builder withBasicAuthentication(String credentials) {
 			String base = Base64Utils.encodeToString(credentials.getBytes());
 			headers.add("Authorization", "Basic " + base);
 			return this;
 		}
 
-		public RestRequest build() {
+		RestRequest build() {
 			return RestRequest.this;
 		}
 	}

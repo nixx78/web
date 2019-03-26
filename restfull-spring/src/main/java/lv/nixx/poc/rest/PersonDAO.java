@@ -19,9 +19,9 @@ import lv.nixx.poc.rest.exception.PersonNotFoundException;
 @Component
 public class PersonDAO {
 	
-	private static AtomicInteger id = new AtomicInteger();
-	private static Map<Integer, Person> map = new ConcurrentHashMap<>();
-	private static Map<UUID, Integer[]> removeBatch = new HashMap<>();
+	private static final AtomicInteger id = new AtomicInteger();
+	private static final Map<Integer, Person> map = new ConcurrentHashMap<>();
+	private static final Map<UUID, Integer[]> removeBatch = new HashMap<>();
 	
 	static {
 		try {
@@ -74,7 +74,7 @@ public class PersonDAO {
 		return removeBatch.remove(batchId);
 	}
 
-	private static void addPerson(String name, String surname, Date dateOfBirth) throws ParseException {
+	private static void addPerson(String name, String surname, Date dateOfBirth) {
 		int id = PersonDAO.id.incrementAndGet();
 		Person p = new Person(name, surname, dateOfBirth );
 		p.setId(id);
