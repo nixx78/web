@@ -1,6 +1,8 @@
 /.metadata/
 /.recommenders/
 /*/.settings/
+/*/.idea
+/*/*.iml
 /Servers
 .classpath
 .project 

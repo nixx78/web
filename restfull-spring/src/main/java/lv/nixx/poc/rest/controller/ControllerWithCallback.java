@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 public class ControllerWithCallback {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ControllerWithCallback.class);
-	
+
 	private final int port = 8080;
 
 	@RequestMapping(method=RequestMethod.GET, value="/synchrequest/{id}")

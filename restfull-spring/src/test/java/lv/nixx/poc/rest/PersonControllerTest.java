@@ -5,16 +5,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.net.URI;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +28,9 @@ import lv.nixx.poc.rest.domain.Person;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = RestAppRunner.class, webEnvironment=WebEnvironment.DEFINED_PORT)
 public class PersonControllerTest {
-	
+
 	private final String URL = "http://localhost:8080/rest/person";
-	
+
 	private final String adminUserCredentials = "nixx:nixx_pass";
 	private final String questUserCredentials = "quest:quest_pass";
 
@@ -90,8 +89,15 @@ public class PersonControllerTest {
 				.build();
 		
 		ResponseEntity<List<Action<String, Person>>> response = r.postForEntity();
-		List<Action<String, Person>> respActions = response.getBody();
-		System.out.println(respActions);
+		HttpHeaders headers = response.getHeaders();
+
+		String[] cookie =  String.join(";", headers.get(HttpHeaders.SET_COOKIE)).split(";");
+		System.out.println("==== Cookie ====");
+		for (String c: cookie)
+			System.out.println(c.trim());
+		System.out.println("==== Response body ====");
+		System.out.println(response.getBody());
+		System.out.println("=======================");
 	}
 	
 	@Test
@@ -265,6 +271,11 @@ public class PersonControllerTest {
 			assertEquals(HttpStatus.NOT_FOUND, t.getStatusCode());
 			throw t;
 		}
+	}
+
+	@Test
+	public void requestWithCookie() {
+
 	}
 
 }
