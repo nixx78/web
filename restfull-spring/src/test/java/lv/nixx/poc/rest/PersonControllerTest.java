@@ -24,6 +24,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Operation;
 import lv.nixx.poc.rest.domain.Person;
+import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = RestAppRunner.class, webEnvironment=WebEnvironment.DEFINED_PORT)
@@ -90,6 +91,12 @@ public class PersonControllerTest {
 		
 		ResponseEntity<List<Action<String, Person>>> response = r.postForEntity();
 		HttpHeaders headers = response.getHeaders();
+
+		Set<String> keys = headers.keySet();
+		System.out.println("Keys: " + keys);
+		for (String k: keys) {
+			System.out.println("Key: " + k + ":value" + headers.get(k));
+		}
 
 		String[] cookie =  String.join(";", headers.get(HttpHeaders.SET_COOKIE)).split(";");
 		System.out.println("==== Cookie ====");
@@ -274,8 +281,15 @@ public class PersonControllerTest {
 	}
 
 	@Test
-	public void requestWithCookie() {
+	public void loginRequest() {
 
+		RestRequest r = RestRequest.builder()
+				.toURL("http://localhost:8080/login")
+				.build();
+
+		ResponseEntity<String> response = r.postForEntity();
+
+		assertEquals(HttpStatus.OK, response.getStatusCode());
 	}
 
 }
