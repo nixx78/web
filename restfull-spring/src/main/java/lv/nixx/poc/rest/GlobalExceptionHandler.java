@@ -22,7 +22,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> persistenceExceptionHandler(RuntimeException e, WebRequest request) {
 		log.error("Internal system error [{}]", e.getMessage());
 		
-		return handleExceptionInternal(e, new ErrorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.toString()), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+		return handleExceptionInternal(e, new ErrorResponse(e.getMessage(),
+				HttpStatus.INTERNAL_SERVER_ERROR.toString()),
+				new HttpHeaders(),
+				HttpStatus.INTERNAL_SERVER_ERROR,
+				request);
 	}
 
 }

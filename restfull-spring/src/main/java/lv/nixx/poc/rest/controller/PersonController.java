@@ -7,10 +7,12 @@ import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Person;
 import lv.nixx.poc.rest.domain.Status;
 
+import lv.nixx.poc.rest.exception.PersonNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import static org.springframework.http.HttpStatus.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -44,7 +46,7 @@ public class PersonController {
 		HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/person/{id}").buildAndExpand(p.getId()).toUri());
 		
-		return new ResponseEntity<>(p, headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(p, headers, CREATED);
 	}
 	
 	@PostMapping(value="processActions", consumes="application/json")
@@ -66,6 +68,18 @@ public class PersonController {
 	public Person getPerson(@PathVariable(name="id") int id) {
 		log.debug("Get person by id [{}]", id);
 		return personDAO.getById(id);
+	}
+
+	@RequestMapping(value="/{id}", method = RequestMethod.HEAD)
+	public ResponseEntity<String> getPersonHeader(@PathVariable(name="id") int id) {
+		log.debug("Get person headers (HEAD) by id [{}]", id);
+		HttpStatus status = HttpStatus.OK;
+		try {
+			personDAO.getById(id);
+		} catch (PersonNotFoundException ex) {
+			status= HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<>(status);
 	}
 
 	@ApiOperation(value="Method return all Persons", responseContainer = "List")
@@ -101,7 +115,7 @@ public class PersonController {
         final HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(builder.path(BASE_URL + "/delete/{id}").buildAndExpand(batchId).toUri());
 		
-		return new ResponseEntity<>(batchId.toString(), headers, HttpStatus.OK);
+		return new ResponseEntity<>(batchId.toString(), headers, OK);
 	}
 	
 	@DeleteMapping("/delete/{batchId}")
@@ -114,7 +128,7 @@ public class PersonController {
 			return new ResponseEntity<>(batchId.toString(), HttpStatus.OK);
 		}
 
-		return new ResponseEntity<>(batchId.toString(), HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(batchId.toString(), NOT_FOUND);
 	}
 	
 	@GetMapping("/search")
