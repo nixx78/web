@@ -35,7 +35,6 @@ public class EndpointDocController {
     }
 
 
-
     @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
     public void show(HttpServletRequest request, HttpServletResponse response) {
 
@@ -75,13 +74,15 @@ public class EndpointDocController {
                     out.println("<td>" + types + "</td>");
                     out.println("</tr>");
                 }
-                log.info(mapping.toString());
+                if (log.isInfoEnabled()) {
+                    log.info(mapping.toString());
+                }
             }
             out.println("</table>");
             out.println("</body></html>");
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 }

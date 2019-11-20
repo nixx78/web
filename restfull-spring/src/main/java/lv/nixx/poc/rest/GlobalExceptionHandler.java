@@ -13,6 +13,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import lv.nixx.poc.rest.domain.ErrorResponse;
 import lv.nixx.poc.rest.exception.PersonNotFoundException;
 
+import javax.servlet.http.HttpSession;
+import java.util.Optional;
+
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	
@@ -24,5 +27,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		return handleExceptionInternal(e, new ErrorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.toString()), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
 	}
+
+	@ExceptionHandler(value={IllegalStateException.class})
+	protected ResponseEntity<Object> illegalStateExceptionHandler(RuntimeException e, WebRequest request, HttpSession httpSession) {
+
+		String entity = Optional.ofNullable(httpSession)
+				.map(t -> t.getAttribute("entity"))
+				.map(Object::toString)
+				.orElse("Unknown");
+
+		log.error("Internal system error (IllegalStateException) [{}], entity [{}]", e.getMessage(), entity);
+
+		return handleExceptionInternal(e, new ErrorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.toString()), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+	}
+
 
 }
