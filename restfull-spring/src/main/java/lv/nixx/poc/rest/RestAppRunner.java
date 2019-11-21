@@ -17,5 +17,5 @@ public class RestAppRunner extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(RestAppRunner.class);
 	}
-	
+
 }

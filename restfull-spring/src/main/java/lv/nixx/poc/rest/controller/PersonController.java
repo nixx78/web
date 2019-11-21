@@ -94,7 +94,9 @@ public class PersonController {
     @PostMapping("/delete")
     public ResponseEntity<String> postPersonRemoveBatch(@RequestBody Integer[] ids, UriComponentsBuilder builder) {
 
-        log.debug("Ids for delete [{}]", Arrays.toString(ids));
+        if (log.isDebugEnabled()) {
+            log.debug("Ids for delete [{}]", Arrays.toString(ids));
+        }
 
         UUID batchId = personDAO.addToDeleteBatch(ids);
 

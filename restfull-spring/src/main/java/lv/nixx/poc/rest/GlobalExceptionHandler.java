@@ -1,9 +1,9 @@
 package lv.nixx.poc.rest;
 
+import lv.nixx.poc.rest.exception.PersonNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,10 +11,11 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import lv.nixx.poc.rest.domain.ErrorResponse;
-import lv.nixx.poc.rest.exception.PersonNotFoundException;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -26,9 +27,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		log.error("Internal system error [{}]", e.getMessage());
 		
 		return handleExceptionInternal(e, new ErrorResponse(e.getMessage(),
-				HttpStatus.INTERNAL_SERVER_ERROR.toString()),
+				INTERNAL_SERVER_ERROR.toString(), null, null),
 				new HttpHeaders(),
-				HttpStatus.INTERNAL_SERVER_ERROR,
+				INTERNAL_SERVER_ERROR,
 				request);
 	}
 
@@ -40,9 +41,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 				.map(Object::toString)
 				.orElse("Unknown");
 
+		String action = Optional.ofNullable(httpSession)
+				.map(t -> t.getAttribute("action"))
+				.map(Object::toString)
+				.orElse("Unknown");
+
 		log.error("Internal system error (IllegalStateException) [{}], entity [{}]", e.getMessage(), entity);
 
-		return handleExceptionInternal(e, new ErrorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.toString()), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+		return handleExceptionInternal(e,
+				new ErrorResponse(e.getMessage(),
+				INTERNAL_SERVER_ERROR.toString(),
+						action,
+						entity
+				),
+		new HttpHeaders(), INTERNAL_SERVER_ERROR, request);
 	}
 
 

@@ -16,7 +16,7 @@ public class ControllerWithCallback {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ControllerWithCallback.class);
 
-	private final int port = 8080;
+	private final static int port = 8080;
 
 	@GetMapping(value="/synchrequest/{id}")
 	public @ResponseBody String request(@PathVariable(name="id") String id)  {

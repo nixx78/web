@@ -9,5 +9,8 @@ public class ErrorResponse {
 	
 	private final String errorMessage;
 	private final String status;
+	private final String action;
+	private final String entity;
+
 
 }

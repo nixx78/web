@@ -7,9 +7,11 @@ import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @Configuration
+@EnableAspectJAutoProxy
 public class AppConfig {
 
 	private Component1 component1;
@@ -39,6 +41,5 @@ public class AppConfig {
 				.withDetail("message", component1.getStatusMessage())
 				.build();
 	}
-
 
 }
