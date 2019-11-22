@@ -27,7 +27,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		log.error("Internal system error [{}]", e.getMessage());
 		
 		return handleExceptionInternal(e, new ErrorResponse(e.getMessage(),
-				INTERNAL_SERVER_ERROR.toString(), null, null),
+				INTERNAL_SERVER_ERROR.toString(), null, null, null),
 				new HttpHeaders(),
 				INTERNAL_SERVER_ERROR,
 				request);
@@ -46,13 +46,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 				.map(Object::toString)
 				.orElse("Unknown");
 
+		String description = Optional.ofNullable(httpSession)
+				.map(t -> t.getAttribute("description"))
+				.map(Object::toString)
+				.orElse("Unknown");
+
 		log.error("Internal system error (IllegalStateException) [{}], entity [{}]", e.getMessage(), entity);
 
 		return handleExceptionInternal(e,
 				new ErrorResponse(e.getMessage(),
 				INTERNAL_SERVER_ERROR.toString(),
 						action,
-						entity
+						entity,
+						description
 				),
 		new HttpHeaders(), INTERNAL_SERVER_ERROR, request);
 	}

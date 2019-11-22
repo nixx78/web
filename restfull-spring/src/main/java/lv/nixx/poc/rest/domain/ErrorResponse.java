@@ -11,6 +11,7 @@ public class ErrorResponse {
 	private final String status;
 	private final String action;
 	private final String entity;
+	private final String description;
 
 
 }

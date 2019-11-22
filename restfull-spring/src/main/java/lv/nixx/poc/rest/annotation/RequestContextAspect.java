@@ -1,5 +1,6 @@
 package lv.nixx.poc.rest.annotation;
 
+import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
@@ -23,11 +24,18 @@ public class RequestContextAspect {
     }
 
     @Before(value = "execution(* lv.nixx.poc.rest.controller.*.*(..)) && @annotation(requestDescriptor)")
-    public void audit(RequestDescriptor requestDescriptor) {
+    public void requestContext(RequestDescriptor requestDescriptor) {
         log.info("RequestDescriptor Aspect called [{}]", requestDescriptor);
 
         httpSession.setAttribute("action", requestDescriptor.action());
         httpSession.setAttribute("entity", requestDescriptor.entity());
+    }
+
+    @Before(value = "execution(* lv.nixx.poc.rest.controller.*.*(..)) && @annotation(apiDescription)")
+    public void apiDescriptor(ApiOperation apiDescription) {
+        log.info("ApiDescription Aspect called [{}]", apiDescription);
+
+        httpSession.setAttribute("description", apiDescription.value());
     }
 
 }

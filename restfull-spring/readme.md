@@ -48,8 +48,8 @@ http://docs.spring.io/spring/docs/4.0.0.RELEASE/spring-framework-reference/pdf/s
 	* PersonControllerTest - примеры вызовов с клиентской стороны сервера для выполнения различных оперций
 
 
-
-
+#Swagger UL Path
+http://localhost:8080/swagger-ui.html
 
 
 
