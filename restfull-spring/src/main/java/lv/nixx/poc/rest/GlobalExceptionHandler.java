@@ -1,6 +1,7 @@
 package lv.nixx.poc.rest;
 
 import lv.nixx.poc.rest.exception.PersonNotFoundException;
+import lv.nixx.poc.rest.exception.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

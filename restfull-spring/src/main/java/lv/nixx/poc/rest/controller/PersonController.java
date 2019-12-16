@@ -20,6 +20,9 @@ import io.swagger.annotations.ApiOperation;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
+
 @RestController
 @RequestMapping("/" + PersonController.BASE_URL)
 @Api(value = "CRUD Operations for entity Person")
@@ -47,7 +50,7 @@ public class PersonController {
         return new ResponseEntity<>(p, headers, HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "processActions", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "processActions", consumes = APPLICATION_JSON_VALUE)
     public List<Action<String, Person>> processActions(@RequestBody List<Action<String, Person>> actions, HttpServletResponse response) {
         log.debug("Actions [{}]", actions);
         actions.forEach(t -> t.setStatus(Status.SUCCESS));
@@ -56,7 +59,7 @@ public class PersonController {
         return actions;
     }
 
-    @GetMapping(value = "/{id}/xml", produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping(value = "/{id}/xml", produces = APPLICATION_XML_VALUE)
     public Person getPersonAsXML(@PathVariable int id) {
         log.debug("Get person by id [{}] as XML", id);
         return personDAO.getById(id);
@@ -69,7 +72,7 @@ public class PersonController {
     }
 
     @ApiOperation(value = "Method return all Persons", responseContainer = "List")
-    @GetMapping(produces = "application/json")
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
     public Person[] getAllPersons() {
         log.debug("Get all persons");
         Collection<Person> allPersons = personDAO.getAllPersons();
