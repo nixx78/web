@@ -1,7 +1,7 @@
 package lv.nixx.poc.rest;
 
+import lv.nixx.poc.rest.domain.ErrorResponse;
 import lv.nixx.poc.rest.exception.PersonNotFoundException;
-import lv.nixx.poc.rest.exception.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import lv.nixx.poc.rest.domain.ErrorResponse;
-
-import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.web.context.request.RequestAttributes.SCOPE_REQUEST;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -38,27 +35,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {IllegalStateException.class})
-    protected ResponseEntity<Object> illegalStateExceptionHandler(RuntimeException e, WebRequest request, HttpSession httpSession) {
-
+    protected ResponseEntity<Object> illegalStateExceptionHandler(RuntimeException e, WebRequest request) {
 
         Map<String, String> map = new HashMap<>();
-        if (httpSession != null) {
-            Enumeration<String> attributeNames = httpSession.getAttributeNames();
-
-            while (attributeNames.hasMoreElements()) {
-                String attrib = attributeNames.nextElement();
-                map.put(attrib, getAttribute(httpSession, attrib));
-            }
-        }
+        map.put("action", getAttribute(request, "action"));
+        map.put("entity", getAttribute(request, "entity"));
+        map.put("description", getAttribute(request, "description"));
 
         log.error("Internal system error (IllegalStateException) [{}]", e.getMessage());
 
         return handleExceptionInternal(e, map, new HttpHeaders(), INTERNAL_SERVER_ERROR, request);
     }
 
-    private String getAttribute(HttpSession httpSession, String attribute) {
-        return Optional.ofNullable(httpSession)
-                .map(t -> t.getAttribute(attribute))
+    private String getAttribute(WebRequest request, String attribute) {
+        return Optional.ofNullable(request)
+                .map(t -> t.getAttribute(attribute, SCOPE_REQUEST))
                 .map(Object::toString)
                 .orElse("Unknown");
     }

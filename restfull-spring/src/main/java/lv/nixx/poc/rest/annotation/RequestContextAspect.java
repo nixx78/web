@@ -5,10 +5,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpSession;
+import static org.springframework.web.context.request.RequestAttributes.SCOPE_REQUEST;
 
 @Aspect
 @Service
@@ -16,26 +17,25 @@ public class RequestContextAspect {
 
     private static final Logger log = LoggerFactory.getLogger(RequestContextAspect.class);
 
-    private HttpSession httpSession;
-
-    @Autowired
-    public void setHttpSession(HttpSession httpSession) {
-        this.httpSession = httpSession;
-    }
-
     @Before(value = "execution(* lv.nixx.poc.rest.controller.*.*(..)) && @annotation(requestDescriptor)")
     public void requestContext(RequestDescriptor requestDescriptor) {
         log.info("RequestDescriptor Aspect called [{}]", requestDescriptor);
 
-        httpSession.setAttribute("action", requestDescriptor.action());
-        httpSession.setAttribute("entity", requestDescriptor.entity());
+        saveAttrib("action", requestDescriptor.action());
+        saveAttrib("entity", requestDescriptor.entity());
     }
 
     @Before(value = "execution(* lv.nixx.poc.rest.controller.*.*(..)) && @annotation(apiDescription)")
     public void apiDescriptor(ApiOperation apiDescription) {
         log.info("ApiDescription Aspect called [{}]", apiDescription);
 
-        httpSession.setAttribute("description", apiDescription.value());
+        saveAttrib("description", apiDescription.value());
+    }
+
+
+    private void saveAttrib(String name, String value) {
+        ServletRequestAttributes r = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        r.setAttribute(name, value, SCOPE_REQUEST);
     }
 
 }
