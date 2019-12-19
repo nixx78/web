@@ -17,7 +17,7 @@ public class RequestContextAspect {
 
     private static final Logger log = LoggerFactory.getLogger(RequestContextAspect.class);
 
-    @Before(value = "execution(* lv.nixx.poc.rest.controller.*.*(..)) && @annotation(requestDescriptor)")
+    @Before(value = "execution(* *.*(..)) && @annotation(requestDescriptor)")
     public void requestContext(RequestDescriptor requestDescriptor) {
         log.info("RequestDescriptor Aspect called [{}]", requestDescriptor);
 
@@ -25,7 +25,7 @@ public class RequestContextAspect {
         saveAttrib("entity", requestDescriptor.entity());
     }
 
-    @Before(value = "execution(* lv.nixx.poc.rest.controller.*.*(..)) && @annotation(apiDescription)")
+    @Before(value = "execution(* *.*(..)) && @annotation(apiDescription)")
     public void apiDescriptor(ApiOperation apiDescription) {
         log.info("ApiDescription Aspect called [{}]", apiDescription);
 
