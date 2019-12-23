@@ -12,9 +12,6 @@ public class ControllerForGlobalHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ControllerForGlobalHandler.class);
 
-
-    //FIXME Add Swagger annotation and handle it ?!
-
     @GetMapping(path = "/rest/process1")
     @ApiOperation(value = "Test method Process1")
     @RequestDescriptor(action = "Action1", entity = "Person")

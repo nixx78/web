@@ -11,7 +11,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @Configuration
-@EnableAspectJAutoProxy
 public class AppConfig {
 
 	private Component1 component1;

@@ -34,5 +34,25 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 request);
     }
 
+    @ExceptionHandler(value = {IllegalStateException.class})
+    protected ResponseEntity<Object> illegalStateExceptionHandler(RuntimeException e, WebRequest request) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("action", getAttribute(request, "action"));
+        map.put("entity", getAttribute(request, "entity"));
+        map.put("description", getAttribute(request, "description"));
+
+        log.error("Internal system error (IllegalStateException) [{}]", e.getMessage());
+
+        return handleExceptionInternal(e, map, new HttpHeaders(), INTERNAL_SERVER_ERROR, request);
+    }
+
+    private String getAttribute(WebRequest request, String attribute) {
+        return Optional.ofNullable(request)
+                .map(t -> t.getAttribute(attribute, SCOPE_REQUEST))
+                .map(Object::toString)
+                .orElse("Unknown");
+    }
+
 
 }
