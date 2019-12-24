@@ -1,7 +1,6 @@
-package lv.nixx.poc.rest;
+package lv.nixx.poc.exh.handler;
 
-import lv.nixx.poc.rest.domain.ErrorResponse;
-import lv.nixx.poc.rest.exception.PersonNotFoundException;
+import lv.nixx.poc.exh.exception.PersonNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

@@ -1,4 +1,4 @@
-package lv.nixx.poc.rest.annotation;
+package lv.nixx.poc.exh.handler.annotation;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -14,7 +14,7 @@ public class ScheduledExceptionHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScheduledExceptionHandler.class);
 
-    @AfterThrowing(pointcut="execution(* *(..)) && @annotation(lv.nixx.poc.rest.annotation.GlobalHandler)", throwing="ex")
+    @AfterThrowing(pointcut="execution(* *(..)) && @annotation(lv.nixx.poc.exh.handler.annotation.GlobalHandler)", throwing="ex")
     public void handleTheException(JoinPoint joinPoint, Exception ex) throws NoSuchMethodException {
 
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();

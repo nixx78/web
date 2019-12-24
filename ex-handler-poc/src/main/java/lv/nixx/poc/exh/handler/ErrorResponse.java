@@ -1,4 +1,4 @@
-package lv.nixx.poc.rest.domain;
+package lv.nixx.poc.exh.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

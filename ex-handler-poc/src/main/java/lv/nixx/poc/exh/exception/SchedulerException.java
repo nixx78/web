@@ -1,4 +1,4 @@
-package lv.nixx.poc.rest.exception;
+package lv.nixx.poc.exh.exception;
 
 
 public class SchedulerException extends RuntimeException {

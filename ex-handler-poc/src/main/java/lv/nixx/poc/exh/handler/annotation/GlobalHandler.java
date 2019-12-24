@@ -1,4 +1,4 @@
-package lv.nixx.poc.rest.annotation;
+package lv.nixx.poc.exh.handler.annotation;
 
 
 import java.lang.annotation.ElementType;

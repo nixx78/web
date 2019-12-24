@@ -1,4 +1,4 @@
-package lv.nixx.poc.rest.exception;
+package lv.nixx.poc.exh.exception;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;

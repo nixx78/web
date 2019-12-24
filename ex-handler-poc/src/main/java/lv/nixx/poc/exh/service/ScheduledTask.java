@@ -1,10 +1,8 @@
-package lv.nixx.poc.rest.service;
+package lv.nixx.poc.exh.service;
 
-import lv.nixx.poc.rest.annotation.GlobalHandler;
-import lv.nixx.poc.rest.exception.SchedulerException;
+import lv.nixx.poc.exh.handler.annotation.GlobalHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
