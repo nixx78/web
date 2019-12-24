@@ -21,7 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @EnableAspectJAutoProxy
-//@ComponentScan({"lv.nixx.poc.exh.controller", "lv.nixx.poc.exh.handler"})
+@ComponentScan({"lv.nixx.poc.exh.controller", "lv.nixx.poc.exh.handler", "lv.nixx.poc.exh.service"})
 public class AppRunner extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
@@ -37,7 +37,7 @@ public class AppRunner extends SpringBootServletInitializer {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("lv.nixx.poc.rest"))
+                .apis(RequestHandlerSelectors.basePackage("lv.nixx.poc.exh"))
                 .paths(PathSelectors.ant("/rest/**/**"))
                 .build();
     }
