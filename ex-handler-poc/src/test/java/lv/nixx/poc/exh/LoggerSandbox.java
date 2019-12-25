@@ -16,7 +16,7 @@ public class LoggerSandbox {
         MDC.put("action", "action.value");
 
         LOG.error("Simple error message1");
-        LOG.error(NotificationMarker.notification(), "Notification message");
+        LOG.error(NotificationMarker.get(), "Notification message");
     }
 
 }

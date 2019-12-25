@@ -8,7 +8,7 @@ public class NotificationMarker {
     private NotificationMarker() {
     }
 
-    public static Marker notification() {
+    public static Marker get() {
         return MarkerFactory.getMarker("NOTIFICATION");
     }
 
