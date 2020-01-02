@@ -9,6 +9,7 @@ public class NotificationAppender extends AppenderBase<ILoggingEvent> {
 
     @Override
     protected void append(ILoggingEvent event) {
+
         final Map<String, String> mdcPropertyMap = event.getMDCPropertyMap();
 
         System.out.println("NA" + event + "\n\t Map: " + mdcPropertyMap);

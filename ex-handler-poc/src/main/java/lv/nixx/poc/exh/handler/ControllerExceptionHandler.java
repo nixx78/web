@@ -41,6 +41,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         map.put("action", getAttribute("action"));
         map.put("entity", getAttribute("entity"));
         map.put("description", getAttribute("description"));
+        map.put("exception", e.getMessage());
 
         log.error("Internal system error (IllegalStateException) [{}]", e.getMessage());
 

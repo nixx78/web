@@ -7,17 +7,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @RestController
 public class ControllerForGlobalHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ControllerForGlobalHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ControllerForGlobalHandler.class);
 
     @GetMapping(path = "/rest/process1")
     @ApiOperation(value = "Test method Process1")
     @Descriptor(action = "Action1", entity = "Person")
     public String process1() {
 
-        log.info("Rest process1 call");
+        LOG.info("Rest process1 call");
 
         if (true) {
             throw new IllegalStateException("Error message");
@@ -31,7 +34,7 @@ public class ControllerForGlobalHandler {
     @Descriptor(action = "Action2", entity = "Account")
     public String process2() {
 
-        log.info("Rest process2 call");
+        LOG.info("Rest process2 call");
 
         if (true) {
             throw new IllegalStateException("Error message");
@@ -43,23 +46,22 @@ public class ControllerForGlobalHandler {
     @GetMapping(path = "/rest/process3")
     @ApiOperation(value = "Test method, throw exception in different thread")
     @Descriptor(action = "Action2", entity = "Account")
-    public String process3() {
+    public String process3() throws Exception {
 
-        log.info("Rest process3 call");
+        LOG.info("Rest process3 call");
 
-        //TODO add sample with Future.get() exception there....
+        ExecutorService es = Executors.newSingleThreadExecutor();
 
-        new Thread( () -> {
-            if (true) {
-                throw new IllegalStateException("Error message in new Thread");
-            }
-        }).start();
+        try {
+            es.submit(() -> {
+                throw new IllegalStateException("Error message from new Thread");
+            }).get();
+
+        } catch (InterruptedException e) {
+            LOG.error(e.getMessage(), e);
+        }
 
         return "Success";
     }
-
-
-
-
 
 }
