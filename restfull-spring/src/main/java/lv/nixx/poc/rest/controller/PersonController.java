@@ -7,6 +7,7 @@ import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Person;
 import lv.nixx.poc.rest.domain.Status;
 
+import lv.nixx.poc.rest.exception.PersonNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ import io.swagger.annotations.ApiOperation;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.MediaType.*;
 
 @RestController
 @RequestMapping("/" + PersonController.BASE_URL)
@@ -65,10 +66,20 @@ public class PersonController {
         return personDAO.getById(id);
     }
 
-    @GetMapping(value = "/{id}", produces = "application/json")
+    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     public Person getPerson(@PathVariable(name = "id") int id) {
         log.debug("Get person by id [{}]", id);
         return personDAO.getById(id);
+    }
+
+    @GetMapping(value = "/{id}/test", produces = APPLICATION_JSON_VALUE)
+    public  ResponseEntity<Object> getPersonTest(@PathVariable(name = "id") int id) {
+        log.debug("Get person by id [{}]", id);
+        try {
+            return new ResponseEntity<>(personDAO.getById(id), HttpStatus.OK);
+        } catch(PersonNotFoundException ex) {
+            return new ResponseEntity<>("Person with id [" + id + "] not found", NOT_FOUND);
+        }
     }
 
     @ApiOperation(value = "Method return all Persons", responseContainer = "List")
@@ -91,8 +102,6 @@ public class PersonController {
         log.debug("remove person, id [{}]", id);
         personDAO.delete(id);
     }
-
-
 
     @PostMapping("/delete")
     public ResponseEntity<String> postPersonRemoveBatch(@RequestBody Integer[] ids, UriComponentsBuilder builder) {
@@ -121,12 +130,13 @@ public class PersonController {
             return new ResponseEntity<>(batchId.toString(), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(batchId.toString(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(batchId.toString(), NOT_FOUND);
     }
 
     @GetMapping("/search")
     public ResponseEntity<Person> searchPerson() {
         throw new IllegalStateException("Method 'searchPerson' not yet supported");
     }
+
 
 }
