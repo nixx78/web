@@ -38,4 +38,8 @@ public class RedirectSampleController {
         return "Response from redirected page: " + p1 + " : " + p2;
     }
 
+    //TODO create redirect method with changed HTTP Method and different response objects
+
+
+
 }
