@@ -47,7 +47,8 @@ public class RedirectSampleController {
         final HttpHeaders headers = new HttpHeaders();
         headers.setLocation(redirect);
 
-        // If status is PERMANENT_REDIRECT, redirect method not changed to GET. Body not changed
+        // If status is PERMANENT_REDIRECT, redirect method not changed to GET. Body not changed, to redirect URL
+        // original body will be passed
         return new ResponseEntity<>(body + ":" + param, headers, HttpStatus.PERMANENT_REDIRECT);
     }
 
