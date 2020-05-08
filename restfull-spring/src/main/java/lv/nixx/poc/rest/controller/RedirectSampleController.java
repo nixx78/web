@@ -37,16 +37,18 @@ public class RedirectSampleController {
     }
 
     @PostMapping(value = "/postServiceWithRedirect/{param}")
-    public ResponseEntity<String> postRedirect(@PathVariable String param, UriComponentsBuilder builder) {
+    public ResponseEntity<String> postRedirect(@PathVariable String param,
+                                               @RequestBody(required = false) String body,
+                                               UriComponentsBuilder builder) {
+
         URI redirect = builder.path("redirectPost").build().toUri();
-        LOG.info("Redirected to post [{}]", redirect);
+        LOG.info("POST request, body [{}] redirected to post [{}]", body, redirect);
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setLocation(redirect);
 
-        // If status is PERMANENT_REDIRECT, redirect method not changed to GET
-         String body = "{\"name\":\"" + param + "\"}";
-        return new ResponseEntity<>(body, headers, HttpStatus.PERMANENT_REDIRECT);
+        // If status is PERMANENT_REDIRECT, redirect method not changed to GET. Body not changed
+        return new ResponseEntity<>(body + ":" + param, headers, HttpStatus.PERMANENT_REDIRECT);
     }
 
     @GetMapping("/redirect/{p1}/{p2}")
@@ -61,7 +63,6 @@ public class RedirectSampleController {
         LOG.info("POST redirect come, body: [{}]", body);
         return "Response from POST redirected page:" + body;
     }
-
 
 
 }
