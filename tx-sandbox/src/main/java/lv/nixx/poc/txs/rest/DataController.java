@@ -1,11 +1,8 @@
 package lv.nixx.poc.txs.rest;
 
-
-import lv.nixx.poc.txs.BalanceService;
 import lv.nixx.poc.txs.data.BalanceRepository;
 import lv.nixx.poc.txs.data.TransactionRepository;
 import lv.nixx.poc.txs.data.model.AccountBalance;
-import lv.nixx.poc.txs.data.model.Container;
 import lv.nixx.poc.txs.data.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class DataController {
@@ -24,15 +22,19 @@ public class DataController {
     @Autowired
     private BalanceRepository balanceRepository;
 
-    @Autowired
-    private BalanceService balanceService;
-
     @GetMapping("/clearAll")
     public void clearAll() {
         txnRepo.deleteAll();
         balanceRepository.deleteAll();
     }
 
+    @GetMapping("/tablesContent")
+    public Map<String, Object> getTablesContent() {
+        return Map.of(
+                "balance", balanceRepository.findAll(),
+                "transaction", txnRepo.findAll()
+        );
+    }
 
     @GetMapping("/transaction")
     public List<Transaction> getAllTransactions() {
@@ -48,11 +50,6 @@ public class DataController {
     @PostMapping("/transaction")
     public Transaction add(@RequestBody Transaction txn) {
         return txnRepo.save(txn);
-    }
-
-    @PostMapping("/bulk")
-    public Container saveAll(@RequestBody Container c) {
-        return balanceService.saveAll(c);
     }
 
 

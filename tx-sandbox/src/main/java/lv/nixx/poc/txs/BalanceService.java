@@ -20,20 +20,31 @@ public class BalanceService {
     @Autowired
     private BalanceRepository balanceRepository;
 
+    // Transaction is ok, everything is working
     @Transactional
-    public Container saveAll(Container c) {
+    public Container saveAllInTransaction(Container c) {
 
         final AccountBalance balance = c.getBalance();
 
         final List<Transaction> savedTxn = txnRepo.saveAll(c.getTxn());
         final AccountBalance savedBalance = balanceRepository.save(balance);
 
-        if (balance.getAccountId().equals("Error")) {
+        if (balance.getAccountId().equalsIgnoreCase("Error")) {
+            // Transaction rollback in this case
             throw new IllegalArgumentException("Wrong account");
         }
 
         return new Container(savedTxn, savedBalance);
     }
+
+    // In this case transaction not working, we call method from another method from the save class
+    public Container saveInTxnInternalMethodCall(Container c) {
+        return saveAllInTransaction(c);
+    }
+
+
+    //TODO Add Transaction inside transaction sample Transactional.TxType.REQUIRES_NEW
+
 
 
 }

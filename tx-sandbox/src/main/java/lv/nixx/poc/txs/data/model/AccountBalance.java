@@ -2,11 +2,7 @@ package lv.nixx.poc.txs.data.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.math.BigDecimal;
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -19,5 +15,8 @@ public class AccountBalance {
 
     private String accountId;
     private Date timestamp;
+
+    @Column(nullable = false)
+    private String updateUser;
 
 }
