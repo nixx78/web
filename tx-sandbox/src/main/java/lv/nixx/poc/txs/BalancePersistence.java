@@ -7,12 +7,12 @@ import lv.nixx.poc.txs.data.model.Container;
 import lv.nixx.poc.txs.data.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class BalanceService {
+public class BalancePersistence {
 
     @Autowired
     private TransactionRepository txnRepo;
@@ -22,8 +22,11 @@ public class BalanceService {
 
     // Transaction is ok, everything is working
     @Transactional
-    public Container saveAllInTransaction(Container c) {
+    public Container saveTxnAndBalanceTransactionalAnnotated(Container c) {
+        return saveWithoutTransaction(c);
+    }
 
+    public Container saveWithoutTransaction(Container c) {
         final AccountBalance balance = c.getBalance();
 
         final List<Transaction> savedTxn = txnRepo.saveAll(c.getTxn());
@@ -37,14 +40,7 @@ public class BalanceService {
         return new Container(savedTxn, savedBalance);
     }
 
-    // In this case transaction not working, we call method from another method from the save class
-    public Container saveInTxnInternalMethodCall(Container c) {
-        return saveAllInTransaction(c);
+    public Container saveCallingInternalMethod(Container c) {
+        return saveTxnAndBalanceTransactionalAnnotated(c);
     }
-
-
-    //TODO Add Transaction inside transaction sample Transactional.TxType.REQUIRES_NEW
-
-
-
 }
