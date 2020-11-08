@@ -2,6 +2,8 @@ package lv.nixx.poc.rest.controller;
 
 import java.util.*;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lv.nixx.poc.rest.PersonDAO;
 import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Person;
@@ -34,10 +36,16 @@ public class PersonController {
     static final String BASE_URL = "rest/person";
 
     private PersonDAO personDAO;
+    private ObjectMapper objectMapper;
 
     @Autowired
     public void setPersonDAO(PersonDAO personDAO) {
         this.personDAO = personDAO;
+    }
+
+    @Autowired
+    public void setObjectMapper(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
     }
 
     @PostMapping
@@ -72,12 +80,19 @@ public class PersonController {
         return personDAO.getById(id);
     }
 
+    @GetMapping(value = "/{id}/html", produces = TEXT_HTML_VALUE)
+    public String getPersonAsHtml(@PathVariable(name = "id") int id) throws Exception {
+        log.debug("Get person by id [{}]", id);
+        return objectMapper.writeValueAsString(personDAO.getById(id));
+    }
+
+
     @GetMapping(value = "/{id}/test", produces = APPLICATION_JSON_VALUE)
-    public  ResponseEntity<Object> getPersonTest(@PathVariable(name = "id") int id) {
+    public ResponseEntity<Object> getPersonTest(@PathVariable(name = "id") int id) {
         log.debug("Get person by id [{}]", id);
         try {
             return new ResponseEntity<>(personDAO.getById(id), HttpStatus.OK);
-        } catch(PersonNotFoundException ex) {
+        } catch (PersonNotFoundException ex) {
             return new ResponseEntity<>("Person with id [" + id + "] not found", NOT_FOUND);
         }
     }
