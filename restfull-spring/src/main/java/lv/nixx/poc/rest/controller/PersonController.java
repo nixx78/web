@@ -2,18 +2,20 @@ package lv.nixx.poc.rest.controller;
 
 import java.util.*;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lv.nixx.poc.rest.PersonDAO;
 import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Person;
+import lv.nixx.poc.rest.domain.PersonDTO;
 import lv.nixx.poc.rest.domain.Status;
 
 import lv.nixx.poc.rest.exception.PersonNotFoundException;
+import lv.nixx.poc.rest.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -22,6 +24,7 @@ import io.swagger.annotations.ApiOperation;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.MediaType.*;
@@ -36,6 +39,7 @@ public class PersonController {
     static final String BASE_URL = "rest/person";
 
     private PersonDAO personDAO;
+    private PersonService service;
     private ObjectMapper objectMapper;
 
     @Autowired
@@ -48,15 +52,21 @@ public class PersonController {
         this.objectMapper = objectMapper;
     }
 
+    @Autowired
+    public void setService(PersonService service) {
+        this.service = service;
+    }
+
     @PostMapping
-    public ResponseEntity<Person> addPerson(@RequestBody Person p, UriComponentsBuilder builder) {
+    public ResponseEntity<PersonDTO> addPerson(@RequestBody @Valid PersonDTO p, UriComponentsBuilder builder, BindingResult bindingResult) {
+
         log.debug("Adding person [{}]", p);
 
-        personDAO.save(p);
+        PersonDTO saved = service.save(p);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/person/{id}").buildAndExpand(p.getId()).toUri());
+        headers.setLocation(builder.path("/person/{id}").buildAndExpand(saved.getId()).toUri());
 
-        return new ResponseEntity<>(p, headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(saved, headers, HttpStatus.CREATED);
     }
 
     @PostMapping(value = "processActions", consumes = APPLICATION_JSON_VALUE)

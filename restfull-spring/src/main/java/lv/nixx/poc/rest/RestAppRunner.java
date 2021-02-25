@@ -7,6 +7,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.boot.SpringApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+//TODO https://www.baeldung.com/spring-boot-bean-validation
+
 @SpringBootApplication
 @EnableScheduling
 public class RestAppRunner extends SpringBootServletInitializer {

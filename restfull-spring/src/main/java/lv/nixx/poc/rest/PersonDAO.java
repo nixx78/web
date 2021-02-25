@@ -35,9 +35,11 @@ public class PersonDAO {
 		}
 	}
 	
-	public void save(Person person) {
+	public Person save(Person person) {
 		person.setId( id.incrementAndGet() );
 		map.put(person.getId(), person);
+
+		return person;
 	}
 	
 	//@PreAuthorize("hasRole('ROLE_USER')")

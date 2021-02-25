@@ -3,6 +3,7 @@ package lv.nixx.poc.rest.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.*;
 
@@ -12,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString
 @NoArgsConstructor
 @Data
+@Accessors(chain = true)
 public class Person {
 
 	private int id;
