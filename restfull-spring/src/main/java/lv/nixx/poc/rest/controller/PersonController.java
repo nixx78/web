@@ -1,8 +1,10 @@
 package lv.nixx.poc.rest.controller;
 
+import java.io.IOException;
 import java.util.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.*;
 import lv.nixx.poc.rest.PersonDAO;
 import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Person;
@@ -17,10 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -161,6 +161,13 @@ public class PersonController {
     @GetMapping("/search")
     public ResponseEntity<Person> searchPerson() {
         throw new IllegalStateException("Method 'searchPerson' not yet supported");
+    }
+
+    @PostMapping(value = "/upload")
+    @ApiOperation(value = "Make a POST request to upload the file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Collection<PersonDTO> uploadPersons(@ApiParam(name = "file", value = "Select file to upload", required = true) @RequestPart(name = "file") MultipartFile file) throws IOException {
+        String c = new String(file.getBytes());
+        return this.service.save(c);
     }
 
 
