@@ -1,6 +1,10 @@
 package lv.nixx.poc.rest.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +20,8 @@ import lv.nixx.poc.rest.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -163,12 +169,37 @@ public class PersonController {
         throw new IllegalStateException("Method 'searchPerson' not yet supported");
     }
 
-    @PostMapping(value = "/upload")
+    @PostMapping("/upload")
     @ApiOperation(value = "Make a POST request to upload the file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Collection<PersonDTO> uploadPersons(@ApiParam(name = "file", value = "Select file to upload", required = true) @RequestPart(name = "file") MultipartFile file) throws IOException {
         String c = new String(file.getBytes());
         return this.service.save(c);
     }
 
+    @GetMapping("/download")
+    public ResponseEntity<Resource> download() throws IOException {
+        File file = new File("./data/persons.csv");
+        Path path = Paths.get(file.getAbsolutePath());
+        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("path", file.getAbsolutePath());
+        /*
+            Generic approach
+            headers.add("Content-disposition", "attachment; filename="+ file.getName());
+         */
+
+        // Spring specific way how to set filename
+        headers.setContentDisposition(ContentDisposition.builder("attachment")
+                .filename(file.getName())
+                .build()
+        );
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+    }
 
 }
