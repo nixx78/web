@@ -17,6 +17,8 @@
 
     <properties>
         <java.version>13</java.version>
+        <hibernate.version>5.5.6.Final</hibernate.version>
+        <graphql.spring.version>11.0.0</graphql.spring.version>
     </properties>
 
     <dependencies>
@@ -28,27 +30,45 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.graphql-java</groupId>
+            <groupId>com.graphql-java-kickstart</groupId>
             <artifactId>graphql-spring-boot-starter</artifactId>
-            <version>5.0.2</version>
+            <version>${graphql.spring.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.graphql-java</groupId>
+            <groupId>com.graphql-java-kickstart</groupId>
             <artifactId>graphiql-spring-boot-starter</artifactId>
-            <version>5.0.2</version>
+            <version>${graphql.spring.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java-tools</artifactId>
-            <version>5.2.4</version>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>graphql-spring-boot-starter-test</artifactId>
+            <version>${graphql.spring.version}</version>
+            <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

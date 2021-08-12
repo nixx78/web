@@ -3,6 +3,7 @@ package lv.nixx.poc.graphql.domain.dto;
 import lv.nixx.poc.graphql.domain.Account;
 import lv.nixx.poc.graphql.domain.Balance;
 import lv.nixx.poc.graphql.domain.entity.AccountEntity;
+import lv.nixx.poc.graphql.domain.entity.BalanceEntity;
 
 public class AccountDTO implements Account {
 
@@ -24,7 +25,7 @@ public class AccountDTO implements Account {
 
     @Override
     public Balance getBalance() {
-        Balance b = entity.getBalance();
+        BalanceEntity b = entity.getBalance();
         return new BalanceDTO(b.getAmount(), b.getDate());
     }
 }
