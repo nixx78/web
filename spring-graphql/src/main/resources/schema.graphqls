@@ -1,14 +1,23 @@
 type Query {
     accountById(id: ID): Account
+    customerDetails(id: ID): Customer
 }
 
 type Account {
     id: ID
-    name: String
+    number: String
     balance: Balance
+    customer: Customer
 }
 
 type Balance {
     amount: Float
     date: String
+}
+
+type Customer {
+    name: String
+    surname: String
+    pCode: String
+    accounts: [Account!]!
 }

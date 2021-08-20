@@ -15,7 +15,11 @@ public class AccountEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String name;
+    @OneToOne(targetEntity = CustomerEntity.class)
+    @JoinColumn(name = "CUSTOMER_ID")
+    private CustomerEntity customer;
+
+    private String number;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, targetEntity = BalanceEntity.class)
     private BalanceEntity balance;

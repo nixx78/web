@@ -1,11 +1,11 @@
-package lv.nixx.poc.graphql;
+package lv.nixx.poc.graphql.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.DataFetchingFieldSelectionSet;
-import lv.nixx.poc.graphql.domain.Account;
-import lv.nixx.poc.graphql.domain.dto.AccountDTO;
+import lv.nixx.poc.graphql.domain.dto.Account;
 import lv.nixx.poc.graphql.domain.entity.AccountEntity;
+import lv.nixx.poc.graphql.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +36,7 @@ public class AccountQuery implements GraphQLQueryResolver {
             result = repo.findById(id);
         }
 
-        return new AccountDTO(result.orElseThrow(() -> new IllegalArgumentException("Account with Id: " + id + " not exists")));
+        return new Account(result.orElseThrow(() -> new IllegalArgumentException("Account with Id: " + id + " not exists")));
 
     }
 
