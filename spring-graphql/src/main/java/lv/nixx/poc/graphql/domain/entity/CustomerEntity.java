@@ -20,7 +20,7 @@ public class CustomerEntity {
     private String name;
     private String surname;
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = AccountEntity.class, mappedBy = "customer")
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = AccountEntity.class, mappedBy = "customer")
     private Collection<AccountEntity> accounts;
 
 }

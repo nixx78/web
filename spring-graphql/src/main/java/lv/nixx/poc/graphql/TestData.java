@@ -37,17 +37,17 @@ public class TestData {
 
         accountRepository.save(new AccountEntity()
                 .setCustomer(c1)
-                .setNumber("name10")
+                .setNumber("0010-100200-100")
                 .setBalance(new BalanceEntity(BigDecimal.valueOf(100.20), "07/28/2021")));
 
         accountRepository.save(new AccountEntity()
                 .setCustomer(c1)
-                .setNumber("name20")
+                .setNumber("0010-100200-101")
                 .setBalance(new BalanceEntity(BigDecimal.valueOf(200.30), "07/27/2021")));
 
         accountRepository.save(new AccountEntity()
                 .setCustomer(c1)
-                .setNumber("name30")
+                .setNumber("0010-100200-102")
                 .setBalance(new BalanceEntity(BigDecimal.valueOf(300.40), "07/26/2021")));
     }
 
