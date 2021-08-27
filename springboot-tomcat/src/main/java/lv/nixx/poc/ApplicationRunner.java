@@ -14,6 +14,7 @@ public class ApplicationRunner extends SpringBootServletInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "prod");
+        System.setProperty("spring.application.json", "{\"prop1.name\":\"prop1.value\"}");
         super.onStartup(servletContext);
     }
 
