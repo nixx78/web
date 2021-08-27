@@ -19,7 +19,7 @@ public class InfoController {
     @Autowired
     private Environment env;
 
-    @Value("prop1.name")
+    @Value("${prop1.name}")
     private String property;
 
     @GetMapping("/info")

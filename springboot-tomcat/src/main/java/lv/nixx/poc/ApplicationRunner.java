@@ -19,6 +19,7 @@ public class ApplicationRunner extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
+        System.setProperty("spring.application.json", "{\"prop1.name\":\"prop1.value\"}");
         SpringApplication.run(ApplicationRunner.class, args);
     }
 
