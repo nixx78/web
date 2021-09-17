@@ -1,0 +1,12 @@
+
+add new Application
+
+mutation {
+  newApplication(application: {
+    customerId: 1,
+    text: "Simple text"
+  }) {
+    id
+  }
+}
+

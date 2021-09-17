@@ -1,9 +1,11 @@
 package lv.nixx.poc.graphql;
 
 import lv.nixx.poc.graphql.domain.entity.AccountEntity;
+import lv.nixx.poc.graphql.domain.entity.ApplicationEntity;
 import lv.nixx.poc.graphql.domain.entity.BalanceEntity;
 import lv.nixx.poc.graphql.domain.entity.CustomerEntity;
 import lv.nixx.poc.graphql.repository.AccountRepository;
+import lv.nixx.poc.graphql.repository.ApplicationRepository;
 import lv.nixx.poc.graphql.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -15,15 +17,16 @@ import java.math.BigDecimal;
 @Service
 public class TestData {
 
-    private AccountRepository accountRepository;
-    private CustomerRepository customerRepository;
+    private final AccountRepository accountRepository;
+    private final CustomerRepository customerRepository;
+    private final ApplicationRepository applicationRepository;
 
     @Autowired
-    public TestData(AccountRepository accountRepository, CustomerRepository customerRepository) {
+    public TestData(AccountRepository accountRepository, CustomerRepository customerRepository, ApplicationRepository applicationRepository) {
         this.accountRepository = accountRepository;
         this.customerRepository = customerRepository;
+        this.applicationRepository = applicationRepository;
     }
-
 
     @EventListener(ApplicationReadyEvent.class)
     public void load() {
@@ -49,6 +52,15 @@ public class TestData {
                 .setCustomer(c1)
                 .setNumber("0010-100200-102")
                 .setBalance(new BalanceEntity(BigDecimal.valueOf(300.40), "07/26/2021")));
+
+        applicationRepository.save(new ApplicationEntity()
+                .setCustomer(c1)
+                .setText("Please close my card, number 1111-1111-1111"));
+
+        applicationRepository.save(new ApplicationEntity()
+                .setCustomer(c1)
+                .setText("Please assign loan  1000Eur"));
+
     }
 
 }

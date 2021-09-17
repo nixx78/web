@@ -7,10 +7,14 @@ import java.util.stream.Collectors;
 
 public class Customer {
 
-    private CustomerEntity customerEntity;
+    private final CustomerEntity customerEntity;
 
     public Customer(CustomerEntity customerEntity) {
         this.customerEntity = customerEntity;
+    }
+
+    public Long getId() {
+        return customerEntity.getId();
     }
 
     public String getName() {
@@ -29,6 +33,13 @@ public class Customer {
         return customerEntity.getAccounts()
                 .stream()
                 .map(Account::new)
+                .collect(Collectors.toList());
+    }
+
+    public Collection<Application> getApplications() {
+        return customerEntity.getApplications()
+                .stream()
+                .map(Application::new)
                 .collect(Collectors.toList());
     }
 

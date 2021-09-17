@@ -21,13 +21,14 @@ import java.util.stream.Collectors;
 @Component
 public class CustomerQuery implements GraphQLQueryResolver {
 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
     public CustomerQuery(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
+    //TODO Implement logic for lazy Application
     public Customer customerDetails(Long customerId, DataFetchingEnvironment environment) {
 
         DataFetchingFieldSelectionSet selectionSet = environment.getSelectionSet();

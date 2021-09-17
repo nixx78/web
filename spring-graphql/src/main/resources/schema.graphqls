@@ -3,6 +3,10 @@ type Query {
     customerDetails(id: ID): Customer
 }
 
+type MutationResolver {
+    newApplication(application: ApplicationInput!): Application
+}
+
 type Account {
     id: ID
     number: String
@@ -16,8 +20,27 @@ type Balance {
 }
 
 type Customer {
+    id: ID
     name: String
     surname: String
     pCode: String
     accounts: [Account!]!
+    applications: [Application!]!
 }
+
+type Application {
+    id: ID
+    text: String
+}
+
+input ApplicationInput {
+    customerId: Int
+    text: String
+}
+
+schema {
+    query: Query
+    mutation: MutationResolver
+}
+
+

@@ -23,4 +23,8 @@ public class CustomerEntity {
     @OneToMany(fetch = FetchType.LAZY, targetEntity = AccountEntity.class, mappedBy = "customer")
     private Collection<AccountEntity> accounts;
 
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = ApplicationEntity.class, mappedBy = "customer")
+    private Collection<ApplicationEntity> applications;
+
+
 }
