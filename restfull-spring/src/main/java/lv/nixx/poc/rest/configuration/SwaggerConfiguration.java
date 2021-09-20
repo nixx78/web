@@ -18,7 +18,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)  
           .select()                                  
           .apis(RequestHandlerSelectors.basePackage("lv.nixx.poc.rest"))              
-          .paths(PathSelectors.ant("/rest/**/**"))
+          .paths(PathSelectors.ant("/**/**"))
           .build();
     }
     
