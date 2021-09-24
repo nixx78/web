@@ -59,7 +59,7 @@ public class ApplicationMutationResolver implements GraphQLMutationResolver {
             LOG.info("Application with id updated [{}]", appId);
             return new Application(saved);
         } else {
-            throw new IllegalArgumentException("Application with id [" + appId + "]not exists");
+            throw new IllegalArgumentException("Application with id [" + appId + "] not exists");
         }
     }
 
@@ -74,7 +74,7 @@ public class ApplicationMutationResolver implements GraphQLMutationResolver {
             LOG.info("Application with id [{}] deleted successfully", id);
             return new Application(existing);
         } else {
-            throw new IllegalArgumentException("Application with id [" + id + "not exists");
+            throw new IllegalArgumentException("Application with id [" + id + "] not exists");
         }
     }
 
