@@ -5,6 +5,8 @@ type Query {
 
 type MutationResolver {
     newApplication(application: ApplicationInput!): Application
+    updateApplication(application: ApplicationInput!): Application
+    deleteApplication(id: ID!): Application
 }
 
 type Account {
@@ -34,6 +36,7 @@ type Application {
 }
 
 input ApplicationInput {
+    id: ID
     customerId: Int
     text: String
 }
