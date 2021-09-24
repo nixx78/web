@@ -36,7 +36,7 @@ public class ControllerWithCallback {
 		new Thread(new AsynchResponse(id)).start();
 	}
 
-	class AsynchResponse implements Runnable {
+	static class AsynchResponse implements Runnable {
 
 		private final String id;
 		AsynchResponse(String id) {

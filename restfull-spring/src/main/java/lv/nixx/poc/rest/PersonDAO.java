@@ -42,7 +42,6 @@ public class PersonDAO {
 		return person;
 	}
 	
-	//@PreAuthorize("hasRole('ROLE_USER')")
 	public Person getById(int id) {
 		if ( map.containsKey(id) ) {
 			return map.get(id);

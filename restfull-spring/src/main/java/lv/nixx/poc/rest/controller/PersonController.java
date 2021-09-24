@@ -24,6 +24,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -38,6 +39,7 @@ import static org.springframework.http.MediaType.*;
 @RestController
 @RequestMapping("/" + PersonController.BASE_URL)
 @Api(value = "CRUD Operations for entity Person")
+@Validated
 public class PersonController {
 
     private static final Logger log = LoggerFactory.getLogger(PersonController.class);
@@ -64,7 +66,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonDTO> addPerson(@RequestBody @Valid PersonDTO p, UriComponentsBuilder builder, BindingResult bindingResult) {
+    public ResponseEntity<PersonDTO> addPerson(@RequestBody @Valid PersonDTO p, UriComponentsBuilder builder) {
 
         log.debug("Adding person [{}]", p);
 
@@ -122,7 +124,7 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public Person updatePerson(@RequestBody Person person, @PathVariable String id) {
+    public Person updatePerson(@RequestBody @Valid Person person, @PathVariable String id) {
         log.debug("Update person, id [{}]", id);
         personDAO.update(person);
         return person;

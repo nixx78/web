@@ -11,7 +11,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 
-// https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections
 @RestController
 public class RedirectSampleController {
 

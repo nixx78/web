@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuditFilter implements Filter {
 
-	private Logger log = LoggerFactory.getLogger("AUDIT_LOG");
+	private final Logger log = LoggerFactory.getLogger("AUDIT_LOG");
 
 	@Override public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
