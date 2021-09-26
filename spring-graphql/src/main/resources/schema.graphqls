@@ -1,11 +1,12 @@
 type Query {
     accountById(id: ID): Account
+    accountByType(customerId:ID, type: String): [Account!]!
     customerDetails(id: ID): Customer
 }
 
 type MutationResolver {
-    newApplication(application: ApplicationInput!): Application
-    updateApplication(application: ApplicationInput!): Application
+    newApplication(application: NewApplicationInput!): Application
+    updateApplication(application: ApplicationUpdateInput!): Application
     deleteApplication(id: ID!): Application
 }
 
@@ -14,6 +15,7 @@ type Account {
     number: String
     balance: Balance
     customer: Customer
+    type: String
 }
 
 type Balance {
@@ -35,9 +37,13 @@ type Application {
     text: String
 }
 
-input ApplicationInput {
-    id: ID
+input NewApplicationInput {
     customerId: Int
+    text: String
+}
+
+input ApplicationUpdateInput {
+    id: ID
     text: String
 }
 

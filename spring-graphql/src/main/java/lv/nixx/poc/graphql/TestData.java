@@ -1,9 +1,6 @@
 package lv.nixx.poc.graphql;
 
-import lv.nixx.poc.graphql.domain.entity.AccountEntity;
-import lv.nixx.poc.graphql.domain.entity.ApplicationEntity;
-import lv.nixx.poc.graphql.domain.entity.BalanceEntity;
-import lv.nixx.poc.graphql.domain.entity.CustomerEntity;
+import lv.nixx.poc.graphql.domain.entity.*;
 import lv.nixx.poc.graphql.repository.AccountRepository;
 import lv.nixx.poc.graphql.repository.ApplicationRepository;
 import lv.nixx.poc.graphql.repository.CustomerRepository;
@@ -13,6 +10,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+
+import static lv.nixx.poc.graphql.domain.entity.AccountType.*;
 
 @Service
 public class TestData {
@@ -41,16 +40,19 @@ public class TestData {
         accountRepository.save(new AccountEntity()
                 .setCustomer(c1)
                 .setNumber("0010-100200-100")
+                .setType(CARD)
                 .setBalance(new BalanceEntity(BigDecimal.valueOf(100.20), "07/28/2021")));
 
         accountRepository.save(new AccountEntity()
                 .setCustomer(c1)
                 .setNumber("0010-100200-101")
+                .setType(SAVING)
                 .setBalance(new BalanceEntity(BigDecimal.valueOf(200.30), "07/27/2021")));
 
         accountRepository.save(new AccountEntity()
                 .setCustomer(c1)
                 .setNumber("0010-100200-102")
+                .setType(REGULAR)
                 .setBalance(new BalanceEntity(BigDecimal.valueOf(300.40), "07/26/2021")));
 
         applicationRepository.save(new ApplicationEntity()

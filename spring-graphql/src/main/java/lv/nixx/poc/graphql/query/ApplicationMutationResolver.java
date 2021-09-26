@@ -2,7 +2,8 @@ package lv.nixx.poc.graphql.query;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import lv.nixx.poc.graphql.domain.dto.Application;
-import lv.nixx.poc.graphql.domain.dto.ApplicationInput;
+import lv.nixx.poc.graphql.domain.dto.input.ApplicationUpdateInput;
+import lv.nixx.poc.graphql.domain.dto.input.NewApplicationInput;
 import lv.nixx.poc.graphql.domain.entity.ApplicationEntity;
 import lv.nixx.poc.graphql.domain.entity.CustomerEntity;
 import lv.nixx.poc.graphql.repository.ApplicationRepository;
@@ -28,8 +29,8 @@ public class ApplicationMutationResolver implements GraphQLMutationResolver {
         this.customerRepository = customerRepository;
     }
 
-    public Application newApplication(ApplicationInput input) {
-        Long customerId = input.getCustomerId();
+    public Application newApplication(NewApplicationInput request) {
+        Long customerId = request.getCustomerId();
 
         LOG.info("Try to add application for customer id [{}]", customerId);
 
@@ -37,22 +38,22 @@ public class ApplicationMutationResolver implements GraphQLMutationResolver {
 
         ApplicationEntity created = appRepository.save(new ApplicationEntity()
                 .setCustomer(customer)
-                .setText(input.getText()));
+                .setText(request.getText()));
 
         LOG.info("Application with id [{}] created", created.getId());
 
         return new Application(created);
     }
 
-    public Application updateApplication(ApplicationInput input) {
+    public Application updateApplication(ApplicationUpdateInput request) {
 
-        final Long appId = input.getId();
+        final Long appId = request.getId();
         LOG.info("Try to update application with id [{}]", appId);
 
         Optional<ApplicationEntity> existingOpt = appRepository.findById(appId);
         if (existingOpt.isPresent()) {
             ApplicationEntity applicationEntity = existingOpt.get();
-            applicationEntity.setText(input.getText());
+            applicationEntity.setText(request.getText());
 
             ApplicationEntity saved = appRepository.save(applicationEntity);
 

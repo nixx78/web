@@ -24,4 +24,7 @@ public class AccountEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, targetEntity = BalanceEntity.class)
     private BalanceEntity balance;
 
+    @Enumerated(EnumType.STRING)
+    private AccountType type;
+
 }

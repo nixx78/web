@@ -1,6 +1,7 @@
 package lv.nixx.poc.graphql.domain.dto;
 
 import lv.nixx.poc.graphql.domain.entity.AccountEntity;
+import lv.nixx.poc.graphql.domain.entity.AccountType;
 import lv.nixx.poc.graphql.domain.entity.BalanceEntity;
 
 public class Account {
@@ -26,6 +27,11 @@ public class Account {
 
     public Customer getCustomer() {
         return new Customer(entity.getCustomer());
+    }
+
+    public String getType() {
+        AccountType type = entity.getType();
+        return type == null ? null : type.name();
     }
 
 }

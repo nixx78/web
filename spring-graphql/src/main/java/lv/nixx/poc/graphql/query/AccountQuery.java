@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.criteria.JoinType;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 @Component
@@ -40,18 +42,29 @@ public class AccountQuery implements GraphQLQueryResolver {
 
     }
 
-    /*
-    http://localhost:8080/graphiql
+    public Collection<Account> accountByType(final long customerId, String accountType, DataFetchingEnvironment environment) {
 
-    {
-  accountById(id: 10) {
-    name
-    balance {
-      amount
-      date
+        DataFetchingFieldSelectionSet fields = environment.getSelectionSet();
+
+        //        Optional<AccountEntity> result;
+//        if (fields.contains("balance")) {
+//            result = repo.findOne((root, query, builder) -> {
+//                root.fetch("balance", JoinType.LEFT);
+//                return builder.equal(root.get("id"), id);
+//            });
+//        } else {
+//            result = repo.findById(id);
+//        }
+//
+//        return new Account(result.orElseThrow(() -> new IllegalArgumentException("Account with Id: " + id + " not exists")));
+
+        //TODO https://reflectoring.io/spring-data-specifications/
+        //TODO https://www.baeldung.com/rest-api-search-language-spring-data-specifications
+
+        return Collections.emptyList();
+
     }
-  }
-}
-     */
+
+
 
 }
