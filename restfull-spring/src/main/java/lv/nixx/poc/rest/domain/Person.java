@@ -1,13 +1,12 @@
 package lv.nixx.poc.rest.domain;
 
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.util.*;
-
-import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @ToString
