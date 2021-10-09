@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import lv.nixx.poc.rest.validation.PersonAgeConstrain;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -27,6 +28,7 @@ public class PersonDTO {
     @Size(min = 3, message = "Minimum allowed 'surname' is '3'")
     private String surname;
 
+    @PersonAgeConstrain(minAge = 18)
     private Date dateOfBirth;
 
     public PersonDTO(String name, String surname, Date dateOfBirth ){
