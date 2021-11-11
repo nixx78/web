@@ -1,10 +1,10 @@
 package lv.nixx.poc.react.restfull;
 
 import static org.springframework.http.MediaType.*;
+import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
@@ -20,7 +20,7 @@ public class CrudOperationHandler {
 
 		return ServerResponse.ok()
 				.contentType(APPLICATION_JSON)
-				.body(BodyInserters.fromObject(crudService.getAllPersons()));
+				.body(fromValue(crudService.getAllPersons()));
 
 	}
 	
@@ -28,7 +28,7 @@ public class CrudOperationHandler {
 		Long id = Long.valueOf(request.pathVariable("id"));
 		return ServerResponse.ok()
 				.contentType(APPLICATION_JSON)
-				.body(BodyInserters.fromObject(crudService.getPerson(id)));
+				.body(fromValue(crudService.getPerson(id)));
 	}
 
 	public Mono<ServerResponse> deletePerson(ServerRequest request) {

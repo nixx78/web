@@ -1,6 +1,7 @@
 package lv.nixx.poc.react.restfull;
 
 import static org.springframework.web.reactive.function.BodyInserters.fromObject;
+import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
@@ -31,7 +32,7 @@ public class CrudRouter {
 	public RouterFunction<ServerResponse> routeHello() {
 		
 	    HandlerFunction<ServerResponse> hello = request -> ok()
-	    		.body( fromObject("Hello, current time is: " + LocalTime.now()));
+	    		.body( fromValue("Hello, current time is: " + LocalTime.now()));
 	    
 		return RouterFunctions.route(GET("/timestamp"), hello);
 	}
