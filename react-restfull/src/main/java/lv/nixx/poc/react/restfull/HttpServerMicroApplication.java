@@ -1,5 +1,6 @@
 package lv.nixx.poc.react.restfull;
 
+import reactor.netty.DisposableServer;
 import reactor.netty.http.server.HttpServer;
 
 import java.time.LocalTime;
@@ -10,9 +11,9 @@ import static reactor.core.publisher.Flux.just;
 
 public class HttpServerMicroApplication {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
-        HttpServer.create()
+        DisposableServer server = HttpServer.create()
                 .host("localhost")
                 .port(8080)
                 .route(routes ->
@@ -25,9 +26,9 @@ public class HttpServerMicroApplication {
                                         (req, res) -> res.header(CONTENT_TYPE, TEXT_PLAIN)
                                                 .sendString(just("Message [" + req.param("text") + "] from user"))
                                 )
-                ).bind()
-                .block();
+                ).bindNow();
 
-        Thread.currentThread().join();
+        server.onDispose().block();
     }
+
 }
