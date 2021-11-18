@@ -2,6 +2,10 @@ package lv.nixx.poc.react.flux;
 
 import org.junit.Test;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
+
+import javax.validation.constraints.Null;
 
 public class FluxSandbox {
 
@@ -22,6 +26,32 @@ public class FluxSandbox {
         Flux.zip(fluxFruits, fluxColors, fluxAmounts)
                 .map(t -> "!" + t)
                 .subscribe(System.out::println);
+    }
+
+    @Test
+    public void onErrorExample() {
+        Flux<String> lengthCalculator = Flux.just("1", null, "123", "1234")
+                .map(t -> "Length:" + t.length())
+//                .onErrorReturn(NullPointerException.class, "Incorrect value")
+                .onErrorResume(NullPointerException.class, t -> Mono.just("DefaultValue"));
+
+        lengthCalculator.subscribe(value -> System.out.println("Next: " + value),
+                error -> System.err.println("Error: " + error));
+
+        StepVerifier.create(lengthCalculator)
+                .expectNextCount(2)
+                .verifyComplete();
+    }
+
+    @Test
+    public void stepVerifier() {
+        Flux<String> lengthCalculator = Flux.just("1", null, "123", "1234")
+                .map(t -> "Length:" + t.length());
+
+        StepVerifier.create(lengthCalculator)
+                .expectNextCount(1)
+                .expectError(NullPointerException.class)
+                .verify();
     }
 
 
