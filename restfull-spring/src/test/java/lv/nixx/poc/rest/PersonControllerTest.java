@@ -35,7 +35,7 @@ public class PersonControllerTest {
 
     final DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 
-    private final String URL = "http://localhost:8080/rest/person";
+    private final String URL = "http://localhost:8080/rest-spring/rest/person";
     private final String adminUserCredentials = "nixx:nixx_pass";
 
 	@Test
@@ -288,7 +288,7 @@ public class PersonControllerTest {
     public void loginRequest() {
 
         RestRequest r = RestRequest.builder()
-                .toURL("http://localhost:8080/login")
+                .toURL("http://localhost:8080/rest-spring/login")
                 .build();
 
         ResponseEntity<String> response = r.postForEntity();

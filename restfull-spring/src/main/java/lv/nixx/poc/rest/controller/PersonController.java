@@ -46,7 +46,7 @@ public class PersonController {
 
     private static final Logger log = LoggerFactory.getLogger(PersonController.class);
 
-    static final String BASE_URL = "rest/person";
+    static final String BASE_URL = "/rest/person";
 
     private PersonDAO personDAO;
     private PersonService service;
