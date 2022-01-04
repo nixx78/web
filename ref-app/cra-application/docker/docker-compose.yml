@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    container_name: CRA-DB
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'project-management'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'root-password'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - 3306:3306
+    volumes:
+      - pm-dev:/var/lib/mysql
+    build: './db'
+volumes:
+  pm-dev:
