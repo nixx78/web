@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lv.nixx.poc.rest.PersonDAO;
 import lv.nixx.poc.rest.domain.Action;
 import lv.nixx.poc.rest.domain.Person;
@@ -16,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +33,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.MediaType.*;
@@ -178,6 +178,14 @@ public class PersonController {
     public Collection<PersonDTO> uploadPersons(@ApiParam(name = "file", value = "Select file to upload", required = true) @RequestPart(name = "file") MultipartFile file) throws IOException {
         String c = new String(file.getBytes());
         return this.service.save(c);
+    }
+
+    @GetMapping("/{date}")
+    public String response(
+            @Parameter(schema = @Schema(type = "string", format = "date", example = "20200217"), description = "Date for test")
+            @DateTimeFormat(pattern = "yyyyMMdd") @PathVariable("date") Date date
+    ) {
+        return "Response:" + date;
     }
 
     @GetMapping("/download")
