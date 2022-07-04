@@ -1,6 +1,8 @@
 package lv.nixx.poc;
 
 import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,13 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
 
     @GetMapping("/public/hello1")
+    @Tag(name = "Hello endpoint", description = "Hello endpoint operations")
     public String hello1() {
         return "Hello1:" + System.currentTimeMillis();
     }
 
     @GetMapping("/public/hello2")
-    public String hello2() {
-        return "Hello2:" + System.currentTimeMillis();
+    public String hello2(@Parameter(description = "Simple method parameter") String parameter) {
+        return "Hello2:" + System.currentTimeMillis() + ":" + parameter;
     }
 
     @Hidden
