@@ -1,6 +1,6 @@
 <configuration scan="true">
 
-	<property name="LOG_DIR" value="./logs" />
+	<property name="LOG_DIR" value="${catalina.base}/logs" />
 	<property name="PATTERN"
 		value="%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %level %logger{0} - %msg%n" />
 

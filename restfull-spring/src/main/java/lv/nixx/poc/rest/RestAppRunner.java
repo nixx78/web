@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class RestAppRunner extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
+		System.setProperty("catalina.base", ".");
         SpringApplication.run(RestAppRunner.class, args);
     }
     
