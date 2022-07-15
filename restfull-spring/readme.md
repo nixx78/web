@@ -42,6 +42,7 @@ http://docs.spring.io/spring/docs/4.0.0.RELEASE/spring-framework-reference/pdf/s
 
 ## Controller
 	* PersonController - класс контролер, куда попадают запросы от клиентов. В методах, при помощи аннотаций, происходит маппинг URL и метода запроса на соответсвующий метод.
+    * ControllerWithAsyncProcessing - примеры вызовов с асинхронной обработкой
 	
 ## Тесты
 	* PersonControllerMockTest - тест, в котором при помощи заглушек происходит тестирование контроллера.
