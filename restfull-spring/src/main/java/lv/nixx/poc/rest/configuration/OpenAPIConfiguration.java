@@ -1,4 +1,4 @@
-package lv.nixx.poc;
+package lv.nixx.poc.rest.configuration;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -21,17 +21,17 @@ public class OpenAPIConfiguration {
         return openAPI.info(apiInfo());
     }
 
-    @Bean
-    public GroupedOpenApi publicOpenApi() {
-        String[] paths = {"/public/**"};
-        return GroupedOpenApi.builder().group("public").pathsToMatch(paths).build();
-    }
-
-    @Bean
-    public GroupedOpenApi hiddenOpenApi() {
-        String[] paths = {"/hidden/**"};
-        return GroupedOpenApi.builder().group("hidden").pathsToMatch(paths).build();
-    }
+//    @Bean
+//    public GroupedOpenApi publicOpenApi() {
+//        String[] paths = {"/rest/**"};
+//        return GroupedOpenApi.builder().group("public").pathsToMatch(paths).build();
+//    }
+//
+//    @Bean
+//    public GroupedOpenApi hiddenOpenApi() {
+//        String[] paths = {"/hidden/**"};
+//        return GroupedOpenApi.builder().group("hidden").pathsToMatch(paths).build();
+//    }
 
     private Info apiInfo() {
         return new Info()
@@ -51,7 +51,7 @@ public class OpenAPIConfiguration {
     private Contact apiContact() {
         return new Contact()
                 .name("NiXX")
-                .email("nixx78 gmail")
+                .email("email@email.com")
                 .url("My URL");
     }
 }

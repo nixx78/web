@@ -1,9 +1,7 @@
 package lv.nixx.poc.rest.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lv.nixx.poc.rest.PersonDAO;
@@ -35,12 +33,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+import static lv.nixx.poc.rest.controller.PersonController.BASE_URL;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.MediaType.*;
 
 @RestController
-@RequestMapping("/" + PersonController.BASE_URL)
-@Api(value = "CRUD Operations for entity Person")
+@RequestMapping(BASE_URL)
 @Validated
 public class PersonController {
 
@@ -79,7 +77,7 @@ public class PersonController {
         return new ResponseEntity<>(saved, headers, HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "processActions", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "processActions")
     public List<Action<String, Person>> processActions(@RequestBody List<Action<String, Person>> actions, HttpServletResponse response) {
         log.debug("Actions [{}]", actions);
         actions.forEach(t -> t.setStatus(Status.SUCCESS));
@@ -117,7 +115,6 @@ public class PersonController {
         }
     }
 
-    @ApiOperation(value = "Method return all Persons", responseContainer = "List")
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public Person[] getAllPersons() {
         log.debug("Get all persons");
@@ -174,8 +171,12 @@ public class PersonController {
     }
 
     @PostMapping("/upload")
+    //FIXME Migrate to OpenDoc
+    /*
     @ApiOperation(value = "Make a POST request to upload the file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Collection<PersonDTO> uploadPersons(@ApiParam(name = "file", value = "Select file to upload", required = true) @RequestPart(name = "file") MultipartFile file) throws IOException {
+    @ApiParam(name = "file", value = "Select file to upload", required = true)
+    */
+    public Collection<PersonDTO> uploadPersons(@RequestPart(name = "file") MultipartFile file) throws IOException {
         String c = new String(file.getBytes());
         return this.service.save(c);
     }
@@ -212,6 +213,17 @@ public class PersonController {
                 .contentLength(file.length())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
+    }
+
+    @Hidden
+    @GetMapping("/notVisibleInSwaggerEndpoint")
+    public String hiddenEndpoint() {
+        return "NotVisibleInSwaggerEndpoint:" + System.currentTimeMillis();
+    }
+
+    @GetMapping("/hidden/hidden1")
+    public String hidden1() {
+        return "Hidden1:" + System.currentTimeMillis();
     }
 
 }

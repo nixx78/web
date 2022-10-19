@@ -5,6 +5,7 @@ import lv.nixx.poc.rest.domain.Operation;
 import lv.nixx.poc.rest.domain.Person;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.HttpHeaders;
@@ -38,9 +39,15 @@ public class PersonControllerTest {
     private final String URL = "http://localhost:8080/rest-spring/rest/person";
     private final String adminUserCredentials = "nixx:nixx_pass";
 
+    @Value("${server.port}")
+    private int serverPort;
+
 	@Test
 	public void getAllPersons() {
-		RestRequest r = RestRequest.builder()
+
+        System.out.println(serverPort);
+
+        RestRequest r = RestRequest.builder()
 				.toURL(URL)
 				.expectedResponseType(Person[].class)
 				.build();
@@ -155,24 +162,6 @@ public class PersonControllerTest {
 
         assertNotNull(p);
         System.out.println("person as XML " + p);
-    }
-
-
-    @Test(expected = HttpClientErrorException.class)
-    public void tryToAccessResourceWrongCridetntials() {
-        try {
-
-            RestRequest r = RestRequest.builder()
-                    .toURL(URL + "/{id}")
-                    .withURLVariables(2)
-                    .withBasicAuthentication("wrong:cridentials")
-                    .expectedResponseType(Person.class)
-                    .build();
-            r.getForEntity();
-        } catch (HttpClientErrorException ex) {
-            assertEquals(HttpStatus.UNAUTHORIZED, ex.getStatusCode());
-            throw ex;
-        }
     }
 
     @Test(expected = HttpServerErrorException.class)
