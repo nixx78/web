@@ -36,7 +36,7 @@ public class ControllerWithAsyncProcessing {
 
         long stTime = System.currentTimeMillis();
 
-        // Async метод по умолчанию должен вызыватся из разных классов
+        // Async метод по умолчанию должен вызываться из разных классов
 
         CompletableFuture<Collection<String>> alphaData = service.getAlphaData(requestId);
         CompletableFuture<Collection<String>> betaData = service.getBetaData(requestId);

@@ -50,14 +50,8 @@ http://docs.spring.io/spring/docs/4.0.0.RELEASE/spring-framework-reference/pdf/s
 
 
 #Swagger UL Path
-http://localhost:8080/swagger-ui.html
+http://localhost:8080/rest-spring/swagger-ui.html
 
-
-
-
-
-
-
-
-
-
+#Получение/отправка данных при помощи Curl(Windows)
+* Получение данных при помощи GET: curl http://localhost:8080/rest-spring/rest/person
+* Отправка данных при помощи POST: curl -X POST -H "Content-Type: application/json" -d "{\"name\":\"Person.Name\",\"surname\":\"Person.Surname\",\"dateOfBirth\": \"1978-12-06\"}" http://localhost:8080/rest-spring/rest/person

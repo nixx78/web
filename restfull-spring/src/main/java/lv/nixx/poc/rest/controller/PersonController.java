@@ -2,7 +2,11 @@ package lv.nixx.poc.rest.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Encoding;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lv.nixx.poc.rest.PersonDAO;
 import lv.nixx.poc.rest.domain.Action;
@@ -176,7 +180,15 @@ public class PersonController {
     @ApiOperation(value = "Make a POST request to upload the file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ApiParam(name = "file", value = "Select file to upload", required = true)
     */
-    public Collection<PersonDTO> uploadPersons(@RequestPart(name = "file") MultipartFile file) throws IOException {
+    @Operation(summary = "Make a POST request to upload the file", description = "Make a POST request to upload the file")
+//
+//    @RequestBody(content = @Content(Ex
+//            mediaType = MediaType.MULTIPART_FORM_DATA,
+//            schema = @Schema(type = SchemaType.STRING, format = "binary"),
+//            encoding = @Encoding(name = "attachment", contentType = "application/octet-stream")))
+
+    public Collection<PersonDTO> uploadPersons(@Parameter(schema = @Schema(name = "file", type = "string", format = "binary"))
+                                                   @RequestPart(name = "file") MultipartFile file) throws IOException {
         String c = new String(file.getBytes());
         return this.service.save(c);
     }
