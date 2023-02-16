@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>lv.nixx.poc</groupId>
-	<artifactId>resfull-spring</artifactId>
+	<artifactId>restfull-spring</artifactId>
 	<version>0.7.77</version>
 	<packaging>war</packaging>
 
@@ -16,7 +16,7 @@
 
 	<properties>
 		<start-class>lv.nixx.poc.rest.RestAppRunner</start-class>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 
 	<dependencies>
