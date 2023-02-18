@@ -43,4 +43,6 @@ _docker exec -it HelloDocker /bin/sh_
 
 - Получение информации о контейнерах: _docker ps_
 
+- Получение информации о image: _docker image ls_ 
+
 
