@@ -19,7 +19,7 @@ public class SessionController {
     // @ApiIgnore HttpSession session HttpSession session
     public String login(@RequestParam(name = "customerId") String customerId, HttpSession session) {
         session.setAttribute("customerId", customerId);
-        return "Customer:" + customerId + " login success";
+        return "Customer:" + customerId + " login success, SessionID:" + session.getId();
     }
 
     @GetMapping("/logout")
@@ -42,7 +42,7 @@ public class SessionController {
         if (customerId == null) {
             return "Customer not logged in";
         }
-        return customerDetails.getOrDefault(customerId, "Customer [" + customerId + "] not exists");
+        return customerDetails.getOrDefault(customerId, "Customer [" + customerId + "] not exists") + " ,SessionID:" + session.getId();
     }
 
 }
