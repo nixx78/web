@@ -2,11 +2,8 @@ package lv.nixx.poc.rest.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Hidden;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Encoding;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lv.nixx.poc.rest.PersonDAO;
 import lv.nixx.poc.rest.domain.Action;
@@ -120,10 +117,9 @@ public class PersonController {
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public Person[] getAllPersons() {
+    public Collection<Person> getAllPersons() {
         log.debug("Get all persons");
-        Collection<Person> allPersons = personDAO.getAllPersons();
-        return allPersons.toArray(new Person[0]);
+        return personDAO.getAllPersons();
     }
 
     @PutMapping("/{id}")
