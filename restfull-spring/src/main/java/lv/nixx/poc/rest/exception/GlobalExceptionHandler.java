@@ -20,8 +20,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler(value = {PersonNotFoundException.class})
-    protected ResponseEntity<Object> persistenceExceptionHandler(RuntimeException e, WebRequest request) {
+    @ExceptionHandler(PersonNotFoundException.class)
+    protected ResponseEntity<Object> personNotFoundExceptionHandler(RuntimeException e, WebRequest request) {
         log.error("Internal system error [{}]", e.getMessage());
 
         return handleExceptionInternal(e, new ErrorResponse(e.getMessage(),

@@ -26,6 +26,9 @@ management:
 server:
   servlet.context-path: "/rest-spring"
   port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
 
 info:
   app:
