@@ -1,7 +1,7 @@
 package lv.nixx.poc.rest.validation;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import java.util.Date;
 
 public class PersonAgeValidator implements ConstraintValidator<PersonAgeConstrain, Date> {

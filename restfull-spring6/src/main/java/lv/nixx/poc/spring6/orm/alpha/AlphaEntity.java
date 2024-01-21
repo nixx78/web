@@ -1,0 +1,18 @@
+package lv.nixx.poc.spring6.orm.alpha;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Table(name = "ALPHA_TABLE", schema = "alpha")
+@Data
+public class AlphaEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ALPHA_ID")
+    private Long id;
+
+    @Column(name = "ALPHA_STRING")
+    private String alphaString;
+}

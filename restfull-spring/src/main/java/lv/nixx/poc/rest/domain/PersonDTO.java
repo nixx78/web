@@ -7,8 +7,8 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import lv.nixx.poc.rest.validation.PersonAgeConstrain;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.util.Date;
 
 @XmlRootElement

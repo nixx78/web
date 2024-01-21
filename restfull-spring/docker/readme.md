@@ -9,6 +9,8 @@ Application paths:
 - Local run: http://localhost:8080/hello-docker-app/hello
 - Docker run: http://localhost:8081/hello-docker-app/hello
 
+- Tomcat on docker: http://127.0.0.1:81/restfull-spring/swagger-ui/index.html
+
 ### Network
 - Create network: _docker network create **docker-net**_
 - Info about network:  _docker network inspect **docker-net**_

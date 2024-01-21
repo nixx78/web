@@ -1,0 +1,17 @@
+package lv.nixx.poc.spring6.orm.beta;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Table(name = "BETA_TABLE", schema = "beta")
+@Data
+public class BetaEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "BETA_ID")
+    private Long id;
+
+    @Column(name = "BETA_STRING")
+    private String alphaString;
+}
