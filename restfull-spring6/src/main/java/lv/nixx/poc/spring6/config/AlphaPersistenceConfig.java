@@ -55,7 +55,6 @@ public class AlphaPersistenceConfig {
         HashMap<String, Object> properties = new HashMap<>();
 
         properties.put("hibernate.hbm2ddl.auto", ddlAuto);
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         em.setJpaPropertyMap(properties);
 
         return em;
