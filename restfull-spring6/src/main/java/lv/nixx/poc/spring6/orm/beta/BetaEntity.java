@@ -13,5 +13,5 @@ public class BetaEntity {
     private Long id;
 
     @Column(name = "BETA_STRING")
-    private String alphaString;
+    private String betaString;
 }
