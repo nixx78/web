@@ -17,7 +17,7 @@ public class AlphaDBConfig extends AbstractDBConfig {
     private static final String prefix = "alpha";
 
     @Bean(name = prefix + "DataSource")
-    @ConfigurationProperties(prefix = "spring.datasource." + prefix)
+    @ConfigurationProperties(prefix = "db." + prefix)
     @Override
     public DataSource createSource() {
         return super.createSource();
@@ -27,9 +27,9 @@ public class AlphaDBConfig extends AbstractDBConfig {
     @Override
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             @Qualifier(prefix + "DataSource") DataSource dataSource,
-            @Value("${spring.datasource." + prefix + ".init-file:#{null}}") String initFile,
+            @Value("${db." + prefix + ".init-file:#{null}}") String initFile,
             @Value("${hibernate.hbm2ddl.auto}") String ddlAuto,
-            @Value("${spring.datasource." + prefix + ".packages.to.scan}") String packagesToScan
+            @Value("${db." + prefix + ".packages.to.scan}") String packagesToScan
 
     ) throws SQLException {
         return super.entityManagerFactory(dataSource, initFile, ddlAuto, packagesToScan);
