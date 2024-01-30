@@ -1,5 +1,6 @@
 package lv.nixx.poc.spring6.rest;
 
+import lv.nixx.poc.spring6.config.service.DevDataLoader;
 import lv.nixx.poc.spring6.orm.alpha.AlphaEntity;
 import lv.nixx.poc.spring6.orm.beta.BetaEntity;
 import lv.nixx.poc.spring6.repository.alpha.AlphaRepository;
@@ -8,20 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.SQLException;
 import java.util.List;
 
-//TODO https://springdoc.org/#features
 @RestController
 public class Controller {
 
     private final AlphaRepository alphaRepository;
     private final BetaRepository betaRepository;
+    private final DevDataLoader devDataLoader;
+
 
     @Autowired
-    public Controller(AlphaRepository alphaRepository, BetaRepository betaRepository) {
+    public Controller(AlphaRepository alphaRepository, BetaRepository betaRepository, DevDataLoader devDataLoader) {
         this.alphaRepository = alphaRepository;
         this.betaRepository = betaRepository;
+        this.devDataLoader = devDataLoader;
     }
 
     @GetMapping("/service")
@@ -39,6 +41,9 @@ public class Controller {
         return betaRepository.findAll();
     }
 
-
+    @GetMapping("/dev/loadTestData")
+    public void loadDataSource() {
+        devDataLoader.loadTestData();
+    }
 
 }

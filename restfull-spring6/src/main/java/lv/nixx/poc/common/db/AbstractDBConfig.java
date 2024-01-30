@@ -1,6 +1,6 @@
 package lv.nixx.poc.common.db;
 
-import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -11,20 +11,20 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static lv.nixx.poc.common.db.DataSourceInit.initDB;
+import static lv.nixx.poc.common.db.SQLScriptUtil.execute;
 
 public abstract class AbstractDBConfig {
-    public DataSource createSource() {
-        return DataSourceBuilder.create().build();
+
+    public DataSource createSource(DataSourceProperties properties, String initFileName) {
+        DataSource dataSource = properties.initializeDataSourceBuilder().build();
+        execute(dataSource, initFileName);
+        return dataSource;
     }
 
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-                                                                       String initFile,
                                                                        String ddlAuto,
                                                                        String packagesToScan
     ) throws SQLException {
-
-        initDB(dataSource, initFile);
 
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
