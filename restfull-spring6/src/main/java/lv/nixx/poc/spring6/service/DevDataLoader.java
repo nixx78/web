@@ -1,15 +1,15 @@
-package lv.nixx.poc.spring6.config.service;
+package lv.nixx.poc.spring6.service;
 
 import lv.nixx.poc.common.db.SQLScriptUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.sql.DataSource;
 
 @Service
+@Profile("dev")
 public class DevDataLoader {
-
 
     private final String alphaInitFile;
     private final String betaInitFile;

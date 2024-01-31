@@ -17,7 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class AppRunner {
 
     //TODO Review, how is possible to work with properties: https://www.baeldung.com/configuration-properties-in-spring-boot: "5. Using @ConfigurationProperties on a @Bean Method"
-
+    //TODO https://www.woolha.com/tutorials/spring-register-bean-programmatically-examples
     public static void main(String[] args) {
         SpringApplication.run(AppRunner.class, args);
     }

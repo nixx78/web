@@ -1,6 +1,5 @@
 package lv.nixx.poc.spring6.rest;
 
-import lv.nixx.poc.spring6.config.service.DevDataLoader;
 import lv.nixx.poc.spring6.orm.alpha.AlphaEntity;
 import lv.nixx.poc.spring6.orm.beta.BetaEntity;
 import lv.nixx.poc.spring6.repository.alpha.AlphaRepository;
@@ -16,14 +15,11 @@ public class Controller {
 
     private final AlphaRepository alphaRepository;
     private final BetaRepository betaRepository;
-    private final DevDataLoader devDataLoader;
-
 
     @Autowired
-    public Controller(AlphaRepository alphaRepository, BetaRepository betaRepository, DevDataLoader devDataLoader) {
+    public Controller(AlphaRepository alphaRepository, BetaRepository betaRepository) {
         this.alphaRepository = alphaRepository;
         this.betaRepository = betaRepository;
-        this.devDataLoader = devDataLoader;
     }
 
     @GetMapping("/service")
@@ -40,10 +36,4 @@ public class Controller {
     public List<BetaEntity> getAllBeta() {
         return betaRepository.findAll();
     }
-
-    @GetMapping("/dev/loadTestData")
-    public void loadDataSource() {
-        devDataLoader.loadTestData();
-    }
-
 }
