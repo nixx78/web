@@ -1,0 +1,41 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html#production-ready-endpoint-hypermedia
+
+# httptrace, trace, info, metrics, health
+
+spring:
+  jackson:
+    # non 'null' and empty ""
+    DEFAULT_PROPERTY_INCLUSION: NON_EMPTY
+    DATE_FORMAT: yyyy-MM-dd HH:mm:ss
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      security:
+        enabled: false
+      health:
+        sensitive: true
+        show-details: "always"
+
+server:
+  servlet.context-path: "/rest-spring"
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+info:
+  app:
+    name: "restfull-spring"
+    description: "Restfull Sample Spring application"
+    version: '@project.version@'
+
+app:
+  version: '@project.version@'
+
