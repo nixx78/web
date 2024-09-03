@@ -1,6 +1,5 @@
 package lv.nixx.poc.exh.handler.annotation;
 
-import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
@@ -20,13 +19,6 @@ public class RequestContextAspect {
 
         MDC.put("action", descriptor.action());
         MDC.put("entity", descriptor.entity());
-    }
-
-    @Before(value = "execution(* *.*(..)) && @annotation(apiDescription)")
-    public void apiDescriptor(ApiOperation apiDescription) {
-        log.info("ApiDescription Aspect called [{}]", apiDescription);
-
-        MDC.put("description", apiDescription.value());
     }
 
 }

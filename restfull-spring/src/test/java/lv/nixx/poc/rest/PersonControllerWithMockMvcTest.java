@@ -1,6 +1,5 @@
 package lv.nixx.poc.rest;
 
-import lv.nixx.poc.rest.controller.PersonController;
 import lv.nixx.poc.rest.domain.Person;
 import org.junit.Before;
 import org.junit.Test;

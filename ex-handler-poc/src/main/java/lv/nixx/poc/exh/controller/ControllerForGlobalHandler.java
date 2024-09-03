@@ -1,6 +1,6 @@
 package lv.nixx.poc.exh.controller;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lv.nixx.poc.exh.handler.annotation.Descriptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ public class ControllerForGlobalHandler {
     private static final Logger LOG = LoggerFactory.getLogger(ControllerForGlobalHandler.class);
 
     @GetMapping(path = "/rest/process1")
-    @ApiOperation(value = "Test method Process1")
+    @Operation(description = "Test method Process1")
     @Descriptor(action = "Action1", entity = "Person")
     public String process1() {
 
@@ -30,7 +30,7 @@ public class ControllerForGlobalHandler {
     }
 
     @GetMapping(path = "/rest/process2")
-    @ApiOperation(value = "Test method Process2")
+    @Operation(description = "Test method Process2")
     @Descriptor(action = "Action2", entity = "Account")
     public String process2() {
 
@@ -44,7 +44,7 @@ public class ControllerForGlobalHandler {
     }
 
     @GetMapping(path = "/rest/process3")
-    @ApiOperation(value = "Test method, throw exception in different thread")
+    @Operation(description = "Test method, throw exception in different thread")
     @Descriptor(action = "Action2", entity = "Account")
     public String process3() throws Exception {
 
