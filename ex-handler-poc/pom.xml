@@ -15,12 +15,6 @@
         <relativePath/>
 	</parent>
 
-	<properties>
-		<start-class>lv.nixx.poc.exh.AppRunner</start-class>
-		<swagger.version>2.6.1</swagger.version>
-		<java.version>17</java.version>
-	</properties>
-
 	<dependencies>
 
 		<dependency>
@@ -43,17 +37,10 @@
 			<artifactId>spring-aspects</artifactId>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -62,6 +49,11 @@
 			<version>2.4.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
